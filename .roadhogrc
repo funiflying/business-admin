@@ -1,0 +1,28 @@
+{
+  "entry": "src/index.js",
+  "disableCSSModules": false,
+  "less": true,
+  "publicPath": "/",
+  "autoprefixer": null,
+  "proxy": {
+      "/api":{
+          "target":"http://jsonplaceholder.typicode.com/",
+          "changeOrigin":true,
+          "pathRewrite":{"^/api":""}
+      }
+  },
+  "extraBabelPlugins": [
+    "transform-runtime"
+  ],
+  "env": {
+    "development": {
+      "extraBabelPlugins": [
+        "dva-hmr",
+        ["import",{"libraryName":"antd","style":true}]
+      ]
+    }
+  },
+  "theme": {
+        "@primary-color": "#1DA57A"
+      }
+}
