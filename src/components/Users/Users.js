@@ -79,7 +79,7 @@ function  Users({dispatch,list:dataSource,total,page:current,loading}) {
         </div>
         <Table
           columns={columns}
-          dataSource={dataSource}
+          dataSource={dataSource.data}
           rowKey={record => record.id}
           pagination={pagination}
           loading={loading}

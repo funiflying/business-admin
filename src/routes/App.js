@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'dva';
 import { Breadcrumb, Alert } from 'antd';
-var classNames = require('classnames');
+import {getSession} from '../utils/index'
 import styles from '../components/Layout/main.less';
 import Header from '../components/Layout/Header';
 import Sider from '../components/Layout/Sider'
@@ -16,13 +16,15 @@ function App({ children,location,routes,dispatch,app}) {
       dispatch({type:"app/changeTheme"})
     }
   }
+  let user=getSession('PROFILE')
+  let name=user&&user.name||'';
   return (
       <div className={styles.layout}>
           <aside className={darkTheme?styles.sider:styles.sider+" "+styles.light}>
               <Sider {...siderProps}/>
           </aside>
           <div className={styles.main}>
-              <Header />
+              <Header user={name}/>
               <Bread routes={routes}/>
               <div className={styles.container}>
                   <div className={styles.content}>
@@ -38,7 +40,7 @@ function App({ children,location,routes,dispatch,app}) {
 function mapStateToProps(state) {
   let {app}=state;
   return {
-    app:app
+    app
   };
 }
 

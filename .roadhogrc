@@ -6,7 +6,7 @@
   "autoprefixer": null,
   "proxy": {
       "/api":{
-          "target":"http://jsonplaceholder.typicode.com/",
+          "target":"http://rap.taobao.org/mockjsdata/14205/",
           "changeOrigin":true,
           "pathRewrite":{"^/api":""}
       }
@@ -23,6 +23,6 @@
     }
   },
   "theme": {
-        "@primary-color": "#1DA57A"
+        "@primary-color": "#CB2220"
       }
 }

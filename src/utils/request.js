@@ -1,5 +1,5 @@
 import fetch from 'dva/fetch';
-
+import {getSession} from './index'
 function parseJSON(response) {
   return response.json();
 }
@@ -21,7 +21,14 @@ function checkStatus(response) {
  * @return {object}           An object containing either "data" or "err"
  */
 export default async function  request(url, options) {
-  return fetch(url, options)
+  let profile=getSession('PROFILE')
+  const headers={
+    headers:{
+      'token':profile&&profile.token,
+      'deviceTag':3
+    }
+ }
+  return fetch(url, {...options,...headers})
     .then(checkStatus)
     .then(parseJSON)
     .then(data=>({data}))

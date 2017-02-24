@@ -4,7 +4,6 @@ import {Breadcrumb} from 'antd'
 function Bread({routes}) {
   return (
         <Breadcrumb className={styles.bread} routes={routes}/>
-
   );
 }
 

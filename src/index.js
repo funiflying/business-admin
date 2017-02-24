@@ -16,6 +16,10 @@ const app = dva({
 
 app.model(require("./models/users"));
 
+app.model(require("./models/company"));
+
+app.model(require("./models/login"));
+
 app.model(require("./models/app"));
 
 // 2. Plugins

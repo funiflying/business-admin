@@ -9,7 +9,7 @@ function Header({ location,switchSider,siderFold,user }) {
       <div className={styles.header}>
           <Menu className="header-menu" mode="horizontal" >
               <SubMenu style={{ float: 'right' }}
-                       title={<span><Icon type="user" />管理员</span>}
+                       title={<span><Icon type="user" />{user}</span>}
               >
                   <Menu.Item key="logout">
                       <a>注销</a>
