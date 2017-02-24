@@ -16,6 +16,8 @@ const app = dva({
 
 app.model(require("./models/users"));
 
+app.model(require("./models/community"));
+
 app.model(require("./models/company"));
 
 app.model(require("./models/login"));

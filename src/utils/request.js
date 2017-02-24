@@ -21,10 +21,10 @@ function checkStatus(response) {
  * @return {object}           An object containing either "data" or "err"
  */
 export default async function  request(url, options) {
-  let profile=getSession('PROFILE')
+  let profile=getSession('PROFILE');
   const headers={
     headers:{
-      'token':profile&&profile.token,
+      'token':'60b98f7497301cf9005bb9b866b2c9d9bb0a14ea',//profile&&profile.token,
       'deviceTag':3
     }
  }

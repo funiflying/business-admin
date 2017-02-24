@@ -20,8 +20,8 @@ function Sider({location,darkTheme,changeTheme}) {
         </SubMenu>
         <Menu.Item key="sub1-1"><Link to="company"><Icon type="laptop"/>企业</Link></Menu.Item>
         <SubMenu key="sub3" title={<span><Icon type="pie-chart" /><span>社区</span></span>}>
-          <Menu.Item key="sub3-0"><Link to="users">社区管理</Link></Menu.Item>
-          <Menu.Item key="sub3-1"><Link to="users">新增社区</Link></Menu.Item>
+          <Menu.Item key="sub3-0"><Link to="community">社区管理</Link></Menu.Item>
+          <Menu.Item key="sub3-1"><Link to="community/append">新增社区</Link></Menu.Item>
         </SubMenu>
         <SubMenu key="sub4" title={<span><Icon type="appstore-o" /><span>应用</span></span>}>
           <Menu.Item key="sub4-0"><Link to="users">应用管理</Link></Menu.Item>
