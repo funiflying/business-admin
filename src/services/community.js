@@ -7,10 +7,10 @@ export function fetchAll({page=1,size=20,name,org,code,address}) {
   return request(constant.COMMUNITY_LIST_ALL+`?pageNo=${page}&pageNum=${size}&name=${name}&organizationId=${org}&code=${code}&address=${address}`)
 }
 export function remove(id) {
-  return request(constant.COMPANY_DELETE+`?id=${id}`)
+  return request(constant.COMMUNITY_DELETE+`?id=${id}`)
 }
 export function patch(values) {
-  return request(constant.COMPANY_EDIT,{
+  return request(constant.COMMUNITY_EDIT,{
     method:'POST',
     body:JSON.stringify(values)
   })

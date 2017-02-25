@@ -3,7 +3,8 @@ export default {
   namespace: 'company',
   state: {
     data:{},
-    size:20
+    size:20,
+    status:0
   },
   reducers: {
     save(state,{payload:{data,page,size}}){

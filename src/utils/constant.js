@@ -8,4 +8,6 @@ export default {
   COMMUNITY_LIST:"/api/community/getCommunityByOrganization",//T特定组织机构社区列表
   COMMUNITY_LIST_ALL:"/api/community/getCommunityByOrganizationAll",//组织机构所有社区列表
   COMMUNITY_CREATE:"/api/community/insertCommunity",//新增社区
+  COMMUNITY_DELETE:"/api/community/deleteCommunity",//删除社区
+  COMMUNITY_EDIT:"/api/community/updateCommunity",//编辑社区
 }

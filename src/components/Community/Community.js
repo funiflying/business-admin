@@ -1,34 +1,61 @@
 import React,{Component} from 'react';
-import { Modal, Form, Input,Cascader,Row,Col  } from 'antd';
+import { Modal, Form, Input,Cascader,Row,Col,message,Button  } from 'antd';
 import MapComponent from '../../components/Map/Map'
 import region from '../../utils/region.min'
-const FormItem = Form.Item;
-
 import styles from './Community.css';
+const FormItem = Form.Item;
+const Search = Input.Search;
+
 
 class Community extends Component{
   constructor(props){
     super(props);
     this.state={
-      city:null
+      city:null,
+      lng:null,
+      lat:null
     }
   }
   onSelect(point){
-      console.log(point)
+    this.setState({
+      lng:point.lng,
+      lat:point.lat
+    })
+  }
+  onSearch(value){
+     this.setState({
+        address:value
+      });
+  }
+  okHandler(){
+    const { onOk } = this.props;
+    const {resetFields}=this.props.form;
+    this.props.form.validateFields((err, values) => {
+      const {lng,lat}=this.state
+      if (!err) {
+        onOk(Object.assign({},values,{gpsLongitude:lng,gpsLatitude:lat}));
+        resetFields()
+      }
+    });
   }
   render(){
     const { getFieldDecorator } = this.props.form;
     const { name,address,organizationId,city} = this.props.record;
     const formItemLayout = {
-      labelCol: { span: 4 },
-      wrapperCol: { span:6 },
+      labelCol: { span: 8 },
+      wrapperCol: { span:12 },
     };
     const mapProps={
-      city:'厦门',
-      lon:'118',
-      lat:'38',
+      city:null,
+      lng:null,
+      lat:null,
+      onSelect:this.onSelect.bind(this),
+      onMessage:(err)=>{
+         message.info(err)
+      },
       style:{
-        height:'500px'
+        height:"420px",
+        width:"580px"
       }
     }
     const regionProps={
@@ -36,71 +63,84 @@ class Community extends Component{
       showSearch:true,
       allowClear:false
    }
+    const tailFormItemLayout = {
+      wrapperCol: {
+        span: 12,
+        offset: 8,
+      },
+    };
     return (
       <div>
-        <Form horizontal onSubmit={this.okHandler}>
-          <FormItem
-            {...formItemLayout}
-            label="社区名称"
-          >
-            {
-              getFieldDecorator('name', {
-                initialValue: name,
-                rules: [
-                  {
-                    required: true,
-                    message: '请填写社区名称'
-                  }
-                ]
-              })(<Input />)
-            }
-          </FormItem>
-          <FormItem
-            {...formItemLayout}
-            label="城市"
-          >
-            {
-              getFieldDecorator('address', {
-                initialValue: city,
-                rules: [
-                  {
-                    required: true,
-                    message: '请选择城市'
-                  }
-                ],
-                onChange:(value,record)=>{
-                  let city='';
-                  record.map((item)=>{
-                      city+=item.label
-                  });
-                  this.setState({
-                    city:city
-                  })
-                }
-              })(<Cascader {...regionProps} placeholder=""/>)
-            }
-          </FormItem>
-          <FormItem
-            {...formItemLayout}
-            label="详细地址"
-          >
-            {
-              getFieldDecorator('address', {
-                initialValue: address,
-                rules: [
-                  {
-                    required: true,
-                    message: '请填写企业名称'
-                  }
-                ]
-              })(<Input />)
-            }
-          </FormItem>
-        </Form>
         <Row>
-          <Col span="4"/>
-          <Col span="18">
-            <MapComponent {...mapProps} city={this.state.city}/>
+          <Col span="9">
+            <Form horizontal onSubmit={this.okHandler.bind(this)}>
+              <FormItem
+                {...formItemLayout}
+                label="社区名称"
+              >
+                {
+                  getFieldDecorator('name', {
+                    initialValue: name,
+                    rules: [
+                      {
+                        required: true,
+                        message: '请填写社区名称'
+                      }
+                    ]
+                  })(<Input />)
+                }
+              </FormItem>
+              {/*   <FormItem
+               {...formItemLayout}
+               label="城市"
+               >
+               {
+               getFieldDecorator('city', {
+               initialValue: city,
+               rules: [
+               {
+               required: true,
+               message: '请选择城市'
+               }
+               ],
+               onChange:(value,record)=>{
+               let city='';
+               record.map((item)=>{
+               city+=item.label
+               });
+               this.setState({
+               city:city
+               })
+               }
+               })(<Cascader {...regionProps} placeholder=""/>)
+               }
+               </FormItem>*/}
+              <FormItem
+                {...formItemLayout}
+                label="详细地址"
+              >
+                {
+                  getFieldDecorator('address', {
+                    initialValue: address,
+                    rules: [
+                      {
+                        required: true,
+                        message: '请填写详细地址'
+                      }
+                    ],
+                  })(<Search
+                    placeholder=""
+                    onSearch={this.onSearch.bind(this)}
+                  />)
+                }
+              </FormItem>
+              <FormItem {...tailFormItemLayout} >
+                <Button type="primary" htmlType="submit" size="large">提交</Button>
+              </FormItem>
+            </Form>
+          </Col>
+          <Col span="6">
+            <MapComponent {...mapProps} city={this.state.city} address={this.state.address}/>
           </Col>
         </Row>
 
@@ -108,5 +148,4 @@ class Community extends Component{
     )
   }
 }
-
 export default Form.create()(Community);
