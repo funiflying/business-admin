@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'dva';
 import { Table,Popconfirm,message,Button} from 'antd';
-import { routerRedux } from 'dva/router';
+import { routerRedux,Link } from 'dva/router';
 import styles from './Company.less'
 function Community({dispatch,data,loading,page,size,status}) {
   function pageChangeHandler(page) {
@@ -53,10 +53,16 @@ function Community({dispatch,data,loading,page,size,status}) {
     {
       title: '操作',
       key: 'operation',
+      width:'20%',
       render:(record)=>{
+        const link={
+          pathname:'/building',
+          query:{id:record.id}
+        }
         return (<div className={styles['antd-operation-link']}>
           <span >授权</span>
           <span>组织机构</span>
+          <Link to={link} className={styles['text-green']}>查看楼宇</Link>
           <Popconfirm title="确定删除?" onConfirm={deleteHandler.bind(null, record.id)}>
             <a href="javascript:void(0)">删除</a>
           </Popconfirm>

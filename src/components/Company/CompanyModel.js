@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Modal, Form, Input } from 'antd';
+import { Modal, Form, Input,Cascader } from 'antd';
 const FormItem = Form.Item;
+import region from '../../utils/region.min';
 
 class CompanyModel extends Component {
 
@@ -28,7 +29,8 @@ class CompanyModel extends Component {
     const {resetFields}=this.props.form;
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        onOk(values);
+        console.log(values)
+        onOk(Object.assign(values,{cityId:values.cityId[values.cityId.length-1]}));
         this.hideModelHandler();
         resetFields()
       }
@@ -38,11 +40,16 @@ class CompanyModel extends Component {
   render() {
     const { children,title } = this.props;
     const { getFieldDecorator } = this.props.form;
-    const { company, boss,email, address,phone,fax,contract,contractPhone,readme } = this.props.record;
+    const { company, boss,email, address,phone,fax,contract,contractPhone,readme,cityId } = this.props.record;
     const formItemLayout = {
       labelCol: { span: 6 },
       wrapperCol: { span: 16 },
     };
+    const regionProps={
+      options:region,
+      showSearch:true,
+      allowClear:false
+    }
     return (
       <span>
         <span onClick={this.showModelHandler}>
@@ -88,6 +95,22 @@ class CompanyModel extends Component {
                 })(<Input />)
               }
             </FormItem>
+             <FormItem
+               {...formItemLayout}
+               label="城市"
+             >
+               {
+                 getFieldDecorator('cityId', {
+                   initialValue: cityId,
+                   rules: [
+                     {
+                       required: true,
+                       message: '请选择城市'
+                     }
+                   ]
+                 })(<Cascader {...regionProps} placeholder=""/>)
+               }
+               </FormItem>
             <FormItem
               {...formItemLayout}
               label="企业地址"

@@ -8,13 +8,17 @@ import  createLoading from 'dva-loading'
 import createLogger from 'dva-logger'
 // 1. Initialize
 const app = dva({
-    history: useRouterHistory(createHashHistory)({ queryKey: false }),
+    history: useRouterHistory(createHashHistory)(),
     onError(err){
           message.error(err.message)
     }
 });
 
 app.model(require("./models/users"));
+
+app.model(require("./models/building"));
+
+app.model(require("./models/application"));
 
 app.model(require("./models/community"));
 

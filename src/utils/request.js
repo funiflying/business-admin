@@ -24,8 +24,9 @@ export default async function  request(url, options) {
   let profile=getSession('PROFILE');
   const headers={
     headers:{
-      'token':'60b98f7497301cf9005bb9b866b2c9d9bb0a14ea',//profile&&profile.token,
-      'deviceTag':3
+      'token':'5ce90c987a3c6735049144ba9c68573c280c5e21',//profile&&profile.token,
+      'deviceTag':3,
+      'content-type':'application/json;charset=UTF-8'
     }
  }
   return fetch(url, {...options,...headers})

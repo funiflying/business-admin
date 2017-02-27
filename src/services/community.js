@@ -1,7 +1,7 @@
 import request from '../utils/request';
 import constant from '../utils/constant'
-export function fetch({page=1,size=20,name,org,code,address}) {
-  return request(constant.COMMUNITY_LIST+`?pageNo=${page}&pageNum=${size}&name=${name}&organizationId=${org}&code=${code}&address=${address}`)
+export function fetch({page=1,size=20,name,code,address}) {
+  return request(constant.COMMUNITY+`?pageNo=${page}&pageNum=${size}&name=${name}&code=${code}&address=${address}`)
 }
 export function fetchAll({page=1,size=20,name,org,code,address}) {
   return request(constant.COMMUNITY_LIST_ALL+`?pageNo=${page}&pageNum=${size}&name=${name}&organizationId=${org}&code=${code}&address=${address}`)

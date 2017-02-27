@@ -10,18 +10,14 @@ function Community({dispatch,status}) {
       payload: values ,
     });
   }
-  if(status){
-    message.success('操作成功')
-  }
   return (
     <CommunityComponent onOk={createHandler} record={{}}/>
   );
 }
 
 function mapStateToProps(state) {
-  const {status}=state.community;
   return {
-    status
+
   };
 }
 

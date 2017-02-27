@@ -23,12 +23,16 @@ function Sider({location,darkTheme,changeTheme}) {
           <Menu.Item key="sub3-0"><Link to="community">社区管理</Link></Menu.Item>
           <Menu.Item key="sub3-1"><Link to="community/append">新增社区</Link></Menu.Item>
         </SubMenu>
-        <SubMenu key="sub4" title={<span><Icon type="appstore-o" /><span>应用</span></span>}>
-          <Menu.Item key="sub4-0"><Link to="users">应用管理</Link></Menu.Item>
-          <Menu.Item key="sub4-1"><Link to="users">应用接入</Link></Menu.Item>
+        <SubMenu key="sub4" title={<span><Icon type="cloud-o" /><span>楼宇</span></span>}>
+          <Menu.Item key="sub4-0"><Link to="building">楼宇管理</Link></Menu.Item>
+          <Menu.Item key="sub4-1"><Link to="building/append">新增楼宇</Link></Menu.Item>
         </SubMenu>
-        <SubMenu key="sub2" title={<span><Icon type="appstore" /><span>用户</span></span>}>
-          <Menu.Item key="5"><Link to="users">用户管理</Link></Menu.Item>
+        <SubMenu key="sub5" title={<span><Icon type="appstore-o" /><span>应用</span></span>}>
+          <Menu.Item key="sub5-0"><Link to="application">应用管理</Link></Menu.Item>
+          <Menu.Item key="sub5-1"><Link to="application/append">应用接入</Link></Menu.Item>
+        </SubMenu>
+        <SubMenu key="sub6" title={<span><Icon type="appstore" /><span>用户</span></span>}>
+          <Menu.Item key="sub6-0"><Link to="users">用户管理</Link></Menu.Item>
         </SubMenu>
       </Menu>
       <div className={styles.switchtheme}>

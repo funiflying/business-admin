@@ -1,8 +1,6 @@
 import React,{Component} from 'react';
 import { Modal, Form, Input,Cascader,Row,Col,message,Button  } from 'antd';
-import MapComponent from '../../components/Map/Map'
-import region from '../../utils/region.min'
-import styles from './Community.css';
+import MapComponent from '../../components/Map/Map';
 const FormItem = Form.Item;
 const Search = Input.Search;
 
@@ -31,16 +29,16 @@ class Community extends Component{
     const { onOk } = this.props;
     const {resetFields}=this.props.form;
     this.props.form.validateFields((err, values) => {
-      const {lng,lat}=this.state
+      const {lng,lat}=this.state;
       if (!err) {
-        onOk(Object.assign({},values,{gpsLongitude:lng,gpsLatitude:lat}));
+        onOk(Object.assign({},values,{gpsLongitude:lng,gpsLatitude:lat,cityId:values.cityId[values.cityId.length-1]}));
         resetFields()
       }
     });
   }
   render(){
     const { getFieldDecorator } = this.props.form;
-    const { name,address,organizationId,city} = this.props.record;
+    const { name,address,organizationId} = this.props.record;
     const formItemLayout = {
       labelCol: { span: 8 },
       wrapperCol: { span:12 },
@@ -58,11 +56,6 @@ class Community extends Component{
         width:"580px"
       }
     }
-    const regionProps={
-      options:region,
-      showSearch:true,
-      allowClear:false
-   }
     const tailFormItemLayout = {
       wrapperCol: {
         span: 12,
@@ -90,31 +83,6 @@ class Community extends Component{
                   })(<Input />)
                 }
               </FormItem>
-              {/*   <FormItem
-               {...formItemLayout}
-               label="城市"
-               >
-               {
-               getFieldDecorator('city', {
-               initialValue: city,
-               rules: [
-               {
-               required: true,
-               message: '请选择城市'
-               }
-               ],
-               onChange:(value,record)=>{
-               let city='';
-               record.map((item)=>{
-               city+=item.label
-               });
-               this.setState({
-               city:city
-               })
-               }
-               })(<Cascader {...regionProps} placeholder=""/>)
-               }
-               </FormItem>*/}
               <FormItem
                 {...formItemLayout}
                 label="详细地址"
