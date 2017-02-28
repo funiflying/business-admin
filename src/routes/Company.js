@@ -73,6 +73,7 @@ function Company({dispatch,data,loading,page,size,status}) {
     {
       title: '操作',
       key: 'operation',
+      width:'16%',
       render:(record)=>{
          return (<div className={styles['antd-operation-link']}>
            <span >授权</span>

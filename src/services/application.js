@@ -1,7 +1,14 @@
 import request from '../utils/request';
 import constant from '../utils/constant'
 export function fetch({page=1,size=20,name,status}) {
-  return request(constant.APP_LIST+`?pageNo=${page}&pageNum=${size}&name=${name}&status=${status}&}`)
+  let url=`?pageNo=${page}&pageNum=${size}`;
+  if(name!==''&&name!=undefined){
+      url+=`&name=${name}`
+  }
+  if(status!=''&&status!=undefined){
+     url+=`&status=${status}`
+  }
+  return request(constant.APP_LIST+url);
 }
 export function fetchConf(id) {
   return request(constant.APP_GET_CONF+`?id=${id}`)

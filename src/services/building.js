@@ -1,7 +1,7 @@
 import request from '../utils/request';
 import constant from '../utils/constant'
-export function fetch({page=1,size=20,name,code}) {
-  return request(constant.BUILDING_LIST+`?pageNo=${page}&pageNum=${size}&name=${name}&code=${code}`)
+export function fetch({page=1,size=20,name,code,id}) {
+  return request(constant.BUILDING_LIST+`?pageNo=${page}&pageNum=${size}&name=${name}&code=${code}&communityId=${id}`)
 }
 
 export function remove(id) {

@@ -3,20 +3,22 @@ import { connect } from 'dva';
 import {Link} from 'dva/router'
 import { Table,Popconfirm,message,Button,Tag,Tree,Row,Col} from 'antd';
 import { routerRedux } from 'dva/router';
+import TreeComponent from '../components/Building/Tree';
+import SearchComponent from '../components/Building/Search';
 import styles from './Company.less';
-const TreeNode = Tree.TreeNode;
 
-function App({dispatch,data,loading,page,size,status}) {
+
+function App({dispatch,data,loading,page,size,community,id,location}) {
   function pageChangeHandler(page) {
     dispatch(routerRedux.push({
       pathname: '/building',
-      query: { page,size },
+      query: { page,size,id },
     }));
   }
-  function search(value) {
+  function search(values) {
     dispatch(routerRedux.push({
       pathname: '/building',
-      query: value ,
+      query: {...values,id} ,
     }));
   }
   function deleteHandler(id) {
@@ -37,7 +39,6 @@ function App({dispatch,data,loading,page,size,status}) {
       payload: values ,
     });
   }
-
   const columns = [
     {
       title:"编号",
@@ -60,6 +61,7 @@ function App({dispatch,data,loading,page,size,status}) {
           state:{record}
         };
         return (<div className={styles['antd-operation-link']}>
+          <Link to={linkProps} className={styles['text-green']}>查看房间</Link>
           <Popconfirm title="确定删除?" onConfirm={deleteHandler.bind(null, record.id)}>
             <a href="javascript:void(0)">删除</a>
           </Popconfirm>
@@ -74,25 +76,43 @@ function App({dispatch,data,loading,page,size,status}) {
     pageSize:size,
     onShowSizeChange:(current,pageSize)=>{
       dispatch(routerRedux.push({
-        pathname: '/application',
-        query: { page:current,size:pageSize },
+        pathname: '/building',
+        query: { page:current,size:pageSize,id },
       }));
     },
     onChange:pageChangeHandler
   };
+  function onPageChange(pageNo) {
+    dispatch({
+      type:'building/fetchCommunity',
+      payload:{pageNo,page,size,id}
+    })
+  }
+  function onSearch(name) {
+    dispatch({
+      type:'building/fetchCommunity',
+      payload:{name,page,size,id}
+    })
+  }
+  const treeProps={
+    defaultExpandAll:true,
+    showLine:true,
+    defaultSelectedKeys:[id],
+    onSelect:(id,node)=>{
+      dispatch(routerRedux.push({
+        pathname: '/building',
+        query: { page,size,id},
+      }));
+    }
+  }
   return (
     <div>
       <Row>
         <Col span="6">
-          <Tree className="myCls" showLine checkable>
-            <TreeNode title="社区" key="0-0">
-              <TreeNode title="楼宇1" key="0-0-0" />
-              <TreeNode title="楼宇2" key="0-0-1"/>
-
-            </TreeNode>
-          </Tree>
+          <TreeComponent treeProps={treeProps} treeData={community} onPageChange={onPageChange} onSearch={onSearch}/>
         </Col>
         <Col span="18">
+          <SearchComponent onSearch={search}/>
           <Table
             columns={columns}
             dataSource={data.data}
@@ -102,19 +122,19 @@ function App({dispatch,data,loading,page,size,status}) {
           />
         </Col>
       </Row>
-
-
     </div>
   );
 }
 function mapStateToProps(state) {
-  const { data,page,size,status} = state.building;
+  const { data,page,size,status,community,id} = state.building;
   return {
     loading: state.loading.models.building,
     data,
     page,
     size,
-    status
+    status,
+    community,
+    id
   };
 }
 export default connect(mapStateToProps)(App);

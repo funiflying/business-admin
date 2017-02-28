@@ -21,17 +21,17 @@ export default {
     },
     *remove({payload:id},{call,put}){
        var data= yield call(Service.remove,id);
-        yield put({type:'responseStatus',payload:{data}});
+       // yield put({type:'responseStatus',payload:{data}});
         yield put({type:'reload'});
     },
     *patch({payload:values},{call,put}){
         var data=yield call(Service.patch,values);
-        yield put({type:'responseStatus',payload:{data}});
+       // yield put({type:'responseStatus',payload:{data}});
         yield put({type:'reload'});
     },
     *create({payload:values},{call,put}){
      var data=yield call(Service.create,values);
-      yield put({type:'responseStatus',payload:{data}});
+    //  yield put({type:'responseStatus',payload:{data}});
       yield put({type:'reload'})
     },
     *reload(action,{put,select}){

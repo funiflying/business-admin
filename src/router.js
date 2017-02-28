@@ -12,6 +12,7 @@ import Application from "./routes/Application.js";
 import ApplicationAppend from "./routes/ApplicationAppend.js";
 import ApplicationEdit from "./routes/ApplicationEdit.js";
 import Building from "./routes/Building.js";
+import BuildingAppend from "./routes/BuildingAppend.js";
 function RouterConfig({ history }) {
   function isLogin() {
 
@@ -29,6 +30,7 @@ function RouterConfig({ history }) {
           <Route path="/application/append" component={ApplicationAppend} breadcrumbName="应用接入"/>
           <Route path="/application/conf" component={ApplicationEdit} breadcrumbName="应用配置"/>
           <Route path="/building" component={Building} breadcrumbName="楼宇管理" />
+          <Route path="/building/append" component={BuildingAppend} breadcrumbName="新增楼宇" />
       </Route>
       <Route path="/login" component={Login} />
     </Router>

@@ -11,12 +11,11 @@ export default {
       return {...state,page,...data,size};
     },
     responseStatus(state,{payload:{data}}){
-      console.log(data)
       return {...state,...data};
     }
   },
   effects: {
-    *fetch({payload:{page=1,size=20,name}},{call,put}){
+    *fetch({payload:{page,size,name,status}},{call,put}){
       var data= yield call(Service.fetch,{page,size,name});
       yield put({ type: 'save', payload: {data,page:parseInt(page),size:parseInt(size)} });
     },

@@ -15,7 +15,7 @@ export default {
     }
   },
   effects: {
-    *fetch({payload:{page=1,size=20,name}},{call,put}){
+    *fetch({payload:{page=1,size=20,name=''}},{call,put}){
       var data= yield call(Service.fetch,{page,size,name});
       yield put({ type: 'save', payload: {data,page:parseInt(page),size:parseInt(size)} });
     },

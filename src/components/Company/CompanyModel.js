@@ -29,7 +29,6 @@ class CompanyModel extends Component {
     const {resetFields}=this.props.form;
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log(values)
         onOk(Object.assign(values,{cityId:values.cityId[values.cityId.length-1]}));
         this.hideModelHandler();
         resetFields()

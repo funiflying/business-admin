@@ -31,7 +31,7 @@ class Community extends Component{
     this.props.form.validateFields((err, values) => {
       const {lng,lat}=this.state;
       if (!err) {
-        onOk(Object.assign({},values,{gpsLongitude:lng,gpsLatitude:lat,cityId:values.cityId[values.cityId.length-1]}));
+        onOk(Object.assign({},values,{gpsLongitude:lng,gpsLatitude:lat}));
         resetFields()
       }
     });
@@ -66,7 +66,7 @@ class Community extends Component{
       <div>
         <Row>
           <Col span="9">
-            <Form horizontal onSubmit={this.okHandler.bind(this)}>
+            <Form horizontal>
               <FormItem
                 {...formItemLayout}
                 label="社区名称"
@@ -103,7 +103,7 @@ class Community extends Component{
                 }
               </FormItem>
               <FormItem {...tailFormItemLayout} >
-                <Button type="primary" htmlType="submit" size="large">提交</Button>
+                <Button type="primary" onClick={this.okHandler.bind(this)} size="large">提交</Button>
               </FormItem>
             </Form>
           </Col>

@@ -57,7 +57,8 @@ function Community({dispatch,data,loading,page,size,status}) {
       render:(record)=>{
         const link={
           pathname:'/building',
-          query:{id:record.id}
+          query:{id:record.id},
+          state:{community:record}
         }
         return (<div className={styles['antd-operation-link']}>
           <span >授权</span>
