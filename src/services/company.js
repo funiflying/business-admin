@@ -18,3 +18,6 @@ export function create(values) {
     body:JSON.stringify(values)
   })
 }
+export function execute(id) {
+  return request(constant.COMPANY_READ+`?eid=${id}`)
+}

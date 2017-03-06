@@ -6,7 +6,7 @@ import AppComponent from '../components/Application/AppModel';
 import SearchComponent from '../components/Application/Search'
 import { routerRedux } from 'dva/router';
 import styles from './Company.less'
-function App({dispatch,data,loading,page,size,status}) {
+function App({dispatch,loading,page,size,status,data={}}) {
   function pageChangeHandler(page) {
     dispatch(routerRedux.push({
       pathname: '/application',
@@ -39,26 +39,36 @@ function App({dispatch,data,loading,page,size,status}) {
   }
   function forbidden(id) {
     dispatch({
-      type: 'application/remove',
-      payload: id ,
+      type: 'application/patch',
+      payload: {id,status:0} ,
     });
   }
   function start(id) {
     dispatch({
-      type: 'application/remove',
-      payload: id ,
+      type: 'application/patch',
+      payload: {id,status:1}  ,
     });
   }
   const columns = [
     {
-      title:"ID",
-      dataIndex:"id",
-      key:"id"
+      title: '应用名称',
+      dataIndex: 'thirdName',
+      key: 'thirdName',
     },
     {
-      title: '应用名称',
-      dataIndex: 'third_name',
-      key: 'third_name',
+      title: '业主端页面URL',
+      dataIndex: 'appUrl',
+      key: 'appUrl',
+    },
+    {
+      title: '图标URL',
+      dataIndex: 'iconUrl',
+      key: 'iconUrl',
+    },
+    {
+      title: '物业端页面URL',
+      dataIndex: 'manageUrl',
+      key: 'manageUrl',
     },
     {
       title: '状态',
@@ -127,7 +137,7 @@ function mapStateToProps(state) {
     data,
     page,
     size,
-    status
+    status,
   };
 }
 export default connect(mapStateToProps)(App);

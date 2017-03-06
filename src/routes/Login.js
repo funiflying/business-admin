@@ -6,18 +6,23 @@ import {setSession} from '../utils/index'
 function Login({dispatch,loading,isLogin,data}) {
   function onLogin(value) {
     dispatch({
-      type: "login/login",
+      type: "login/enter",
       payload: value
     })
   }
-  if(isLogin){
+  function loginSuccess() {
     setSession('PROFILE',data.data);
     dispatch(routerRedux.push({
       pathname: '/home'
     }))
   }
+  function loginFailed() {
+    dispatch({
+      type:'login/loginFailed'
+    })
+  }
   return (
-    <LoginComponent loading={loading} onLogin={onLogin} dispatch={dispatch}/>
+    <LoginComponent loading={loading} onLogin={onLogin} data={data} dispatch={dispatch} isLogin={isLogin} loginSuccess={loginSuccess} loginFailed={loginFailed}/>
   )
 }
 function  mapStateToProps(state) {

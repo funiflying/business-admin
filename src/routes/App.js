@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'dva';
+import {routerRedux} from 'dva/router'
 import { Breadcrumb, Alert } from 'antd';
-import {getSession} from '../utils/index'
+import {getSession,setSession} from '../utils/index'
 import styles from '../components/Layout/main.less';
 import Header from '../components/Layout/Header';
 import Sider from '../components/Layout/Sider'
@@ -16,15 +17,27 @@ function App({ children,location,routes,dispatch,app}) {
       dispatch({type:"app/changeTheme"})
     }
   }
-  let user=getSession('PROFILE')
-  let name=user&&user.name||'';
+  function logout() {
+    setSession('PROFILE',{});
+    dispatch(routerRedux.push({
+      pathname:"login"
+    }))
+  }
+
+  let user=getSession('PROFILE');
+  if(!user||!user.nickName){
+    dispatch(routerRedux.push({
+      pathname:"login"
+    }))
+  }
+  let name=user&&user.nickName||'';
   return (
       <div className={styles.layout}>
           <aside className={darkTheme?styles.sider:styles.sider+" "+styles.light}>
               <Sider {...siderProps}/>
           </aside>
           <div className={styles.main}>
-              <Header user={name}/>
+              <Header user={name} logout={logout} />
               <Bread routes={routes}/>
               <div className={styles.container}>
                   <div className={styles.content}>

@@ -1,8 +1,6 @@
 import React,{Component} from 'react';
 import {Button,Form,Input,Select,Switch,Spin} from 'antd';
 const FormItem=Form.Item;
-
-
 class Conf extends Component{
   constructor(props){
     super(props)
@@ -16,18 +14,28 @@ class Conf extends Component{
         if(notifyCallbackUrl&&(notifyCallbackUrl.indexOf("https://")!=0||notifyCallbackUrl.indexOf("http://")!=0)){
           notifyCallbackUrl=values.protocol+notifyCallbackUrl;
         }
-        onOk(Object.assign({},values,{id},{notifyCallbackUrl:notifyCallbackUrl},{protocol:null}));
+        delete values.protocol;
+        const request={
+          id:id,
+          callbackUrl:{
+            ...values,
+            notifyCallbackUrl
+          }
+        };
+        onOk(request);
       }
     });
   }
   render(){
     const { getFieldDecorator } = this.props.form;
     const {okHandler,loading} =this.props;
-    const { third_name,status,host,appId,appKey,token,notifyCallbackUrl} = this.props.record;
+    let { thirdName,status,host,appId,appKey,token,notifyCallbackUrl} = this.props.record;
     let protocol="http://";
+    let url=notifyCallbackUrl;
     if(notifyCallbackUrl&&notifyCallbackUrl.indexOf("https://")==0){
       protocol="https://";
     }
+    url=notifyCallbackUrl&&notifyCallbackUrl.replace(protocol,'');
     const formItemLayout = {
       labelCol: { span: 6 },
       wrapperCol: { span:8 },
@@ -49,8 +57,8 @@ class Conf extends Component{
         ]
       })(
       <Select style={{ width: 80 }}>
-        <Option value="http://">http://</Option>
-        <Option value="https://">https://</Option>
+        <Select.Option value="http://">http://</Select.Option>
+        <Select.Option value="https://">https://</Select.Option>
       </Select>
     );
     return (
@@ -61,7 +69,7 @@ class Conf extends Component{
             {...formItemLayout}
             label="应用名称"
           >
-            <span className="ant-form-text">{third_name}</span>
+            <span className="ant-form-text">{thirdName}</span>
           </FormItem>
           <FormItem
             {...formItemLayout}
@@ -140,7 +148,7 @@ class Conf extends Component{
           >
             {
               getFieldDecorator('notifyCallbackUrl', {
-                initialValue: notifyCallbackUrl,
+                initialValue: url,
                 rules: [
                   {
                     required: true,

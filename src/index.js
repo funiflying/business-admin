@@ -10,11 +10,19 @@ import createLogger from 'dva-logger'
 const app = dva({
     history: useRouterHistory(createHashHistory)(),
     onError(err){
-          message.error(err.message)
+          message.info(err.message)
     }
 });
 
 app.model(require("./models/users"));
+
+app.model(require("./models/accredit"));
+
+app.model(require("./models/role"));
+
+app.model(require("./models/authorize"));
+
+app.model(require("./models/organization"));
 
 app.model(require("./models/building"));
 

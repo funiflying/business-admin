@@ -5,6 +5,8 @@ import { Table,Popconfirm,message,Button,Tag,Tree,Row,Col} from 'antd';
 import { routerRedux } from 'dva/router';
 import TreeComponent from '../components/Building/Tree';
 import SearchComponent from '../components/Building/Search';
+import BuildingModel from '../components/Building/BuildingModel';
+
 import styles from './Company.less';
 
 
@@ -33,12 +35,6 @@ function App({dispatch,data,loading,page,size,community,id,location}) {
       payload: { id, ...values },
     });
   }
-  function createHandler(values) {
-    dispatch({
-      type: 'building/create',
-      payload: values ,
-    });
-  }
   const columns = [
     {
       title:"编号",
@@ -53,15 +49,18 @@ function App({dispatch,data,loading,page,size,community,id,location}) {
     {
       title: '操作',
       key: 'operation',
-      width:'15%',
+      width:'16%',
       render:(record)=>{
         const linkProps={
-          pathname:'/application/conf',
+          pathname:'/room',
           query:{id:record.id},
           state:{record}
         };
         return (<div className={styles['antd-operation-link']}>
           <Link to={linkProps} className={styles['text-green']}>查看房间</Link>
+          <BuildingModel record={record} onOk={editHandler.bind(null, record.id)}>
+            <a href="javascript:void(0)" className={styles['edit-text']}>编辑</a>
+          </BuildingModel>
           <Popconfirm title="确定删除?" onConfirm={deleteHandler.bind(null, record.id)}>
             <a href="javascript:void(0)">删除</a>
           </Popconfirm>

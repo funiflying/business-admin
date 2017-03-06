@@ -1,5 +1,5 @@
 import fetch from 'dva/fetch';
-import {getSession} from './index'
+import {getToken} from './index'
 function parseJSON(response) {
   return response.json();
 }
@@ -20,20 +20,18 @@ function checkStatus(response) {
  * @param  {object} [options] The options we want to pass to "fetch"
  * @return {object}           An object containing either "data" or "err"
  */
-export default async function  request(url, options) {
-  let profile=getSession('PROFILE');
+export default async function request(url, options) {
   const headers={
     headers:{
-      'token':'ad5ad498b3ff02f8c42b9d290fc3a82097eb2e42',//profile&&profile.token,
-      'deviceTag':3,
+      'token':getToken(),
+      'deviceTag':4,
       'content-type':'application/json;charset=UTF-8'
     }
- }
+ };
   return fetch(url, {...options,...headers})
     .then(checkStatus)
     .then(parseJSON)
-    .then(data=>({data}))
     .catch(err =>{
-        throw new Error(err)
+        //throw new Error(err)
     });
 }

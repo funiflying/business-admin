@@ -2,26 +2,29 @@ import * as Service from '../services/application'
 export default {
   namespace: 'application',
   state: {
-    data:{},
-    size:20,
-    status:0
+    data:{
+      data:[]
+    },
+    conf:{},
+    size:20
   },
   reducers: {
-    save(state,{payload:{data,page,size}}){
-      return {...state,page,...data,size};
+    save(state,{payload:{data,page,size,conf}}){
+      conf=conf||{};
+      return {...state,page,data,size,conf};
     },
     responseStatus(state,{payload:{data}}){
-      return {...state,...data};
+      return {...state,data};
     }
   },
   effects: {
-    *fetch({payload:{page,size,name,status}},{call,put}){
-      var data= yield call(Service.fetch,{page,size,name});
+    *fetch({payload:{page=1,size=20,name='',status}},{call,put}){
+      var data= yield call(Service.fetch,{page,size,name})||{};
       yield put({ type: 'save', payload: {data,page:parseInt(page),size:parseInt(size)} });
     },
     *fetchConf({payload:{id}},{call,put}){
-      var data= yield call(Service.fetchConf,id);
-      yield put({ type: 'save', payload: {data}});
+      var conf= yield call(Service.fetchConf,id);
+      yield put({ type: 'save', payload: {conf}});
     },
     *remove({payload:id},{call,put}){
       var data= yield call(Service.remove,id);
@@ -49,13 +52,12 @@ export default {
     setup({dispatch,history,params}){
       return history.listen(({pathname,query})=>{
         if(pathname==='/application'){
-          dispatch({type:'fetch',payload:query})
+          dispatch({type:'fetch',payload:query});
         }
         if(pathname==='/application/conf'){
-          dispatch({type:'fetchConf',payload:query})
+          dispatch({type:'fetchConf',payload:query});
         }
-      })
-
+      });
     }
   },
 }

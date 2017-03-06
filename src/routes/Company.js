@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'dva';
 import { Table,Popconfirm,message,Button} from 'antd';
-import { routerRedux } from 'dva/router';
+import { routerRedux,Link } from 'dva/router';
 import SearchComponent from '../components/Company/Search';
-import CompanyModel from '../components/Company/CompanyModel'
+import CompanyModel from '../components/Company/CompanyModel';
+import UploadModel from '../components/Company/UploadModel';
 import styles from './Company.less'
-function Company({dispatch,data,loading,page,size,status}) {
+function Company({dispatch,data,loading,page,size}) {
   function pageChangeHandler(page) {
     dispatch(routerRedux.push({
       pathname: '/company',
@@ -36,8 +37,11 @@ function Company({dispatch,data,loading,page,size,status}) {
       payload: values ,
     });
   }
-  if(status){
-      message.success('操作成功')
+  function execute(eid) {
+    dispatch({
+      type: 'company/execute',
+      payload: eid ,
+    });
   }
   const columns = [
     {
@@ -73,17 +77,25 @@ function Company({dispatch,data,loading,page,size,status}) {
     {
       title: '操作',
       key: 'operation',
-      width:'16%',
+      width:'20%',
       render:(record)=>{
+        const linkProps={
+          pathname:'/accredit/company',
+          query:{eid:record.id},
+          state:{record}
+        };
          return (<div className={styles['antd-operation-link']}>
-           <span >授权</span>
-           <span>组织机构</span>
+           <Link to={`organization?eid=${record.id}`} className={styles['text-green']}>组织机构</Link>
            <CompanyModel record={record} onOk={editHandler.bind(null, record.id)} title="编辑企业信息">
              <a href="javascript:void(0)" className={styles['edit-text']}>编辑</a>
            </CompanyModel>
            <Popconfirm title="确定删除?" onConfirm={deleteHandler.bind(null, record.id)}>
              <a href="javascript:void(0)">删除</a>
            </Popconfirm>
+           <UploadModel record={record} onOk={execute.bind(null, record.id)}>
+             <a href="javascript:void(0)" className={styles['edit-text']}>数据导入</a>
+           </UploadModel>
+           <Link to={linkProps} className={styles['text-green']}>授权</Link>
          </div>)
       }
     },
@@ -100,7 +112,7 @@ function Company({dispatch,data,loading,page,size,status}) {
       }));
     },
     onChange:pageChangeHandler
-  }
+  };
   return (
     <div>
       <SearchComponent search={search} createHandler={createHandler}/>
@@ -115,13 +127,12 @@ function Company({dispatch,data,loading,page,size,status}) {
   );
 }
 function mapStateToProps(state) {
-  const { data,page,size,status} = state.company;
+  const { data,page,size} = state.company;
   return {
     loading: state.loading.models.company,
     data,
     page,
-    size,
-    status
+    size
   };
 }
 export default connect(mapStateToProps)(Company);

@@ -8,7 +8,7 @@ export default {
   },
   reducers: {
     save(state,{payload:{data,page,size}}){
-      return {...state,page,...data,size,...{status:0}};
+      return {...state,page,data,size,...{status:0}};
     },
     responseStatus(state,{payload:{data}}){
       return {...state,...data};

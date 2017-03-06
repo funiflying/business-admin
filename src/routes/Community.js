@@ -60,9 +60,13 @@ function Community({dispatch,data,loading,page,size,status}) {
           query:{id:record.id},
           state:{community:record}
         }
+        const linkProps={
+          pathname:'accredit/community',
+          query:{communityId:record.id},
+          state:{record}
+        };
         return (<div className={styles['antd-operation-link']}>
-          <span >授权</span>
-          <span>组织机构</span>
+          <Link to={linkProps} className={styles['text-green']}>授权</Link>
           <Link to={link} className={styles['text-green']}>查看楼宇</Link>
           <Popconfirm title="确定删除?" onConfirm={deleteHandler.bind(null, record.id)}>
             <a href="javascript:void(0)">删除</a>

@@ -38,7 +38,8 @@ class AppModel extends Component {
   render() {
     const { children,title } = this.props;
     const { getFieldDecorator } = this.props.form;
-    const { third_name, status } = this.props.record;
+    const { thirdName, status,appUrl,iconUrl,manageUrl
+    } = this.props.record;
     const formItemLayout = {
       labelCol: { span: 6 },
       wrapperCol: { span: 14 },
@@ -61,7 +62,37 @@ class AppModel extends Component {
             >
               {
                 getFieldDecorator('thirdName', {
-                  initialValue: third_name,
+                  initialValue: thirdName,
+                })(<Input />)
+              }
+            </FormItem>
+            <FormItem
+              {...formItemLayout}
+              label="业主端页面URL"
+            >
+              {
+                getFieldDecorator('appUrl', {
+                  initialValue: appUrl,
+                })(<Input />)
+              }
+            </FormItem>
+            <FormItem
+              {...formItemLayout}
+              label="图标URL"
+            >
+              {
+                getFieldDecorator('iconUrl', {
+                  initialValue: iconUrl,
+                })(<Input />)
+              }
+            </FormItem>
+            <FormItem
+              {...formItemLayout}
+              label="物业端页面URL"
+            >
+              {
+                getFieldDecorator('manageUrl', {
+                  initialValue: manageUrl,
                 })(<Input />)
               }
             </FormItem>

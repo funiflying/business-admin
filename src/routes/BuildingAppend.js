@@ -1,14 +1,18 @@
 import React from 'react';
 import { connect } from 'dva';
-import { Table,Popconfirm,message,Button,Tag,Tree,Row,Col} from 'antd';
+import { Row,Col,Spin} from 'antd';
+import {routerRedux} from 'dva/router';
 import TreeComponent from '../components/Building/Tree';
 import BuildingComponent from '../components/Building/Building';
 
-function BuildingAppend({dispatch,loading,community,location,id}) {
-  let record={
-    id:'',
-    name:''
-  };
+function BuildingAppend({dispatch,loading,community,location,id,status}) {
+  console.log(status,'append')
+  function createHandler(values) {
+      dispatch({
+        type:'building/create',
+        payload:values
+      })
+  }
   function onPageChange(pageNo) {
     dispatch({
       type:'building/fetchCommunity',
@@ -25,33 +29,36 @@ function BuildingAppend({dispatch,loading,community,location,id}) {
     defaultExpandAll:true,
     showLine:true,
     defaultSelectedKeys:[id],
-    onSelect:(id,node)=>{
-      record={
-        id:id,
-        name:node.selectedNodes[0].props.title
-      };
+    onSelect:(key,node)=>{
+      dispatch(routerRedux.push({
+        pathname:'building/append',
+        query:{id:key[0],name:node.selectedNodes[0].props.title}
+      }))
     }
   }
   return (
     <div>
-      <Row>
-        <Col span="6">
-          <TreeComponent treeProps={treeProps} treeData={community} onPageChange={onPageChange} onSearch={onSearch}/>
-        </Col>
-        <Col span="18">
-          <BuildingComponent record={record}/>
-        </Col>
-      </Row>
+      <Spin spinning={loading}>
+        <Row>
+          <Col span="6">
+            <TreeComponent treeProps={treeProps} treeData={community} onPageChange={onPageChange} onSearch={onSearch}/>
+          </Col>
+          <Col span="14">
+            <BuildingComponent record={location.query} onOk={createHandler}/>
+          </Col>
+        </Row>
+      </Spin>
     </div>
   );
 }
-
 function mapStateToProps(state) {
-  const {community,id} = state.building;
+  const {community,id,name,status} = state.building;
   return {
     loading: state.loading.models.building,
     community,
-    id
+    id,
+    name,
+    status
   };
 }
 

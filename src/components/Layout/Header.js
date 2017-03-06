@@ -4,7 +4,7 @@ import { Link } from 'dva/router';
 import styles from './main.less'
 const SubMenu = Menu.SubMenu;
 
-function Header({ location,switchSider,siderFold,user }) {
+function Header({ location,switchSider,siderFold,user,logout }) {
   return (
       <div className={styles.header}>
           <Menu className="header-menu" mode="horizontal" >
@@ -12,7 +12,7 @@ function Header({ location,switchSider,siderFold,user }) {
                        title={<span><Icon type="user" />{user}</span>}
               >
                   <Menu.Item key="logout">
-                      <a>注销</a>
+                      <a href="javascript:void(0)" onClick={logout}>注销</a>
                   </Menu.Item>
               </SubMenu>
           </Menu>

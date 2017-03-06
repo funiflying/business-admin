@@ -1,10 +1,12 @@
 export default {
   //登录模块
-  LOGIN_ACCOUNT:"/api/account/loginByAccount",//用户登录
+  LOGIN_ACCOUNT:"/api/account/loginByAccountForWeb",//用户登录
   COMPANY_LIST:"/api/enterprise/getEnterprisesByPage",//企业列表
   COMPANY_DELETE:"/api/enterprise/deleteEnterprise",//删除企业
   COMPANY_EDIT:"/api/enterprise/updateEnterprise",//企业编辑
   COMPANY_CREATE:"/api/enterprise/insertEnterprise",//新增企业
+  COMPANY_UPLOAD:"/api/enterprise/cloud/uploadExcel",//上传
+  COMPANY_READ:"/api/enterprise/cloud/execute",//读取上传后的数据
   COMMUNITY:"/api/community/getByWhere",//查询社区
   COMMUNITY_LIST:"/api/community/getCommunityByOrganization",//特定组织机构社区列表
   COMMUNITY_LIST_ALL:"/api/community/getCommunityByOrganizationAll",//组织机构所有社区列表
@@ -21,5 +23,25 @@ export default {
   BUILDING_DELETE:"/api/community/deleteBuilding",//删除楼宇
   BUILDING_EDIT:"/api/community/updateBuilding",//编辑楼宇
   BUILDING_CREATE:"/api/community/insertBuilding",//创建楼宇
+  ORGAN_LIST_COMPANY:"/api/enterprise/getEnterpriseOrganizations",//企业下属所有机构
+  ORGAN_LIST_CHILDREN:"/api/enterprise/getOrganizationChilds",//所有子机构
+  ORGAN_EDIT:"/api/enterprise/updateOrganization",//修改
+  ORGAN_DELETE:"/api/enterprise/deleteOrganization",//删除
+  ORGAN_CREATE:"/api/enterprise/insertOrganization",//新增
+  ORGAN_DETAILS:"/api/enterprise/getOrganizationById",//详细
+  AUTHORIZE_LIST:"/api/permission/system/getPermissionByPage",//权限列表
+  AUTHORIZE_CREATE:"/api/permission/system/insertPermission",//新增
+  AUTHORIZE_DELETE:"/api/permission/system/deletePermission",//禁用
+  AUTHORIZE_EDIT:"/api/permission/system/updatePermission",//编辑
+  ROLE_LIST:"/api/permission/system/getRoleByPage",//角色列表
+  ROLE_DELETE:"/api/permission/system/deleteRole",//删除角色
+  ROLE_CREATE:"/api/permission/system/insertRole",//新增角色
+  ROLE_EDIT:"/api/permission/system/updateRole",//编辑角色
+  ROLE_BINDING:"/api/permission/system/bindRolePermission",//绑定权限
+  ROLE_AUTHOR_LIST:"/api/permission/system/getRolePermissionByRoleId",//获取角色权限列表
+  ROLE_COMPANY_BINDING:"/api/permission/system/bindRoleToEnterprise",//企业绑定角色
+  ROLE_COMPANY_LIST:"/api/permission/system/getEnterpriseRole",//企业角色列表
+  ROLE_COMMUNITY_LIST:"/api/permission/system/getCommunityRole",//社区角色列表
+  ROLE_COMMUNITY_BINDING:"/api/permission/system/bindRoleToCommunity",//企业绑定角色
 
 }

@@ -94,7 +94,7 @@ class CompanyModel extends Component {
                 })(<Input />)
               }
             </FormItem>
-             <FormItem
+            {/* <FormItem
                {...formItemLayout}
                label="城市"
              >
@@ -109,7 +109,7 @@ class CompanyModel extends Component {
                    ]
                  })(<Cascader {...regionProps} placeholder=""/>)
                }
-               </FormItem>
+               </FormItem>*/}
             <FormItem
               {...formItemLayout}
               label="企业地址"

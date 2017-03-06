@@ -4,6 +4,7 @@ import {
 } from 'antd';
 import sha1 from 'sha1';
 import md5 from 'md5'
+import {signature} from '../../utils/index'
 import config from '../../utils/config'
 import styles from './login.less';
 const FormItem = Form.Item;
@@ -12,16 +13,26 @@ class LoginComponent extends Component {
   constructor(props) {
     super(props);
   }
-  handleOk(){
+  handleOk(e){
+     e.preventDefault();
      this.props.form.validateFields((err, values) => {
        if (!err) {
-         this.props.onLogin(Object.assign({},values,{pwd:md5(sha1(values.pwd))}))
+         //md5(sha1(values.pwd))
+         const timestamp=new Date().getTime();
+         const nonce=Math.random().toString(36);
+         const appId="f94b1d87d0d94d698db7ddbfad25571a";
+         const sign=signature(appId,timestamp,nonce);
+         this.props.onLogin(Object.assign({},values,{appId,signature:sign,timestamp,nonce}))
        }
-
      });
   }
   componentWillReceiveProps(nextProps){
-
+    if(nextProps.data.status){
+        nextProps.loginSuccess()
+    }else if(nextProps.data.status==0){
+        nextProps.loginFailed();
+        message.info(nextProps.data.message)
+    }
   }
   render(){
     const { getFieldDecorator } = this.props.form;

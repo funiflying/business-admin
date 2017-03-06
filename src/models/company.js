@@ -8,10 +8,7 @@ export default {
   },
   reducers: {
     save(state,{payload:{data,page,size}}){
-      return {...state,page,...data,size,...{status:0}};
-    },
-    responseStatus(state,{payload:{data}}){
-          return {...state,...data.data};
+      return {...state,page,data,size};
     }
   },
   effects: {
@@ -21,17 +18,17 @@ export default {
     },
     *remove({payload:id},{call,put}){
        var data= yield call(Service.remove,id);
-       // yield put({type:'responseStatus',payload:{data}});
         yield put({type:'reload'});
     },
     *patch({payload:values},{call,put}){
         var data=yield call(Service.patch,values);
-       // yield put({type:'responseStatus',payload:{data}});
         yield put({type:'reload'});
+    },
+    *execute({payload:values},{call,put}){
+      var data=yield call(Service.execute,values);
     },
     *create({payload:values},{call,put}){
      var data=yield call(Service.create,values);
-    //  yield put({type:'responseStatus',payload:{data}});
       yield put({type:'reload'})
     },
     *reload(action,{put,select}){

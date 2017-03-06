@@ -1,35 +1,69 @@
 import React,{Component} from 'react';
-import {Form,Button,Input} from 'antd';
+import {Form,Button,Input,message} from 'antd';
 const FormItem=Form.Item;
 class Building extends Component{
   constructor(props){
     super(props);
   }
+  submitHandler(){
+    const {onOk}=this.props;
+    this.props.form.validateFields((err,values)=>{
+        if(!err){
+          onOk(values);
+          this.props.form.resetFields()
+        }
+    })
+  }
   render(){
     const {getFieldDecorator}=this.props.form;
-    const {record}=this.props;
+    const {name,id}=this.props.record;
     const formItemLayout = {
-      labelCol: { span: 6 },
-      wrapperCol: { span: 12},
+      labelCol: { span: 4 },
+      wrapperCol: { span: 8},
     };
     const tailFormItemLayout = {
       wrapperCol: {
-        span: 12,
-        offset: 6,
+        span: 8,
+        offset: 4,
       },
     };
     return (
       <div>
-          <Form >
-            <FormItem {...formItemLayout} label='社区名称'>
-              {getFieldDecorator(`id`,{
-                 initialValue:'id'
+          <Form vertical onSubmit={this.submitHandler.bind(this)}>
+            <FormItem {...formItemLayout} label='所属社区'>
+              {getFieldDecorator(`communityId`,{
+                 initialValue:id,
+                rules:[
+                  {
+                    required: true,
+                    message: '请选择社区'
+                  }
+                ]
               })(
-                <span className="ant-form-text">{record.name}</span>
+                <span className="ant-form-text">{name}</span>
               )}
             </FormItem>
             <FormItem {...formItemLayout} label='楼宇名称'>
-              {getFieldDecorator(`name`)(
+              {getFieldDecorator(`name`,{
+                rules:[
+                  {
+                    required: true,
+                    message: '请填写楼宇名称'
+                  }
+                ]
+              })(
+                <Input />
+              )}
+            </FormItem>
+            <FormItem {...formItemLayout} label='楼宇编号'>
+              {getFieldDecorator(`code`,{
+                rules:[
+                  {
+                    required: true,
+                    message: '请填写楼宇编号'
+                  }
+                ]
+              })(
                 <Input />
               )}
             </FormItem>

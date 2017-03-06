@@ -2,24 +2,39 @@ import * as Service from '../services/login';
 export default {
   namespace: 'login',
   state: {
-    isLogin:false,
+   data:{}
   },
   reducers: {
       loginSuccess(state,action){
         return {
           ...state,
-          ...action.payload,
-          isLogin:true
+          ...action.payload
+        }
+      },
+      loginFailed(state,action){
+        return {
+          ...state,
+          ...{data:{}}
+        }
+      },
+      logoutSuccess(state,action){
+        return {
+          ...state,
+          ...{data:{}},
+          isLogin:false
         }
       }
   },
   effects: {
-    *login({payload},{call,put}){
-      let {data}= yield call(Service.login,payload);
-      if(data.status){
-        yield put({type:'loginSuccess',payload:{data}})
-      }
+    *enter({payload},{call,put}){
+      let data= yield call(Service.login,payload);
+      yield put({type:'loginSuccess',payload:{data}})
+    },
+    *logout(){
+      yield put({type:'logoutSuccess'})
     }
   },
-  subscriptions: {},
+  subscriptions: {
+
+  },
 }
