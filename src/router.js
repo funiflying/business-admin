@@ -22,11 +22,10 @@ import AccreditCommunity from "./routes/AccreditCommunity.js";
 import Room from "./routes/Room.js";
 function RouterConfig({ history}) {
   function requireAuth(props) {
-
   }
   return (
     <Router history={history} onUpdate={requireAuth}>
-      <Route path="/home" component={App} breadcrumbName="管理中心" >
+      <Route  component={App} breadcrumbName="管理中心" >
         <Route path="/home" component={IndexPage} breadcrumbName="首页"   />
         <Route path="/users" component={Users} breadcrumbName="用户管理" />
         <Route path="/company" component={Company} breadcrumbName="企业管理"/>
@@ -47,8 +46,8 @@ function RouterConfig({ history}) {
       </Route>
       <Route path="/" >
         <IndexRoute component={Login}/>
-        <Route path="/login" component={Login}/>
       </Route>
+      <Route path="/login" component={Login}/>
     </Router>
   );
 }

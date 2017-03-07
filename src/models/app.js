@@ -17,7 +17,6 @@ export default {
     *changeTheme({payload},{put}){
        yield put({type:'handleTheme'})
     }
-
   },
   subscriptions: {
     setup({ dispatch },done){

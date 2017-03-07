@@ -77,7 +77,7 @@ function Company({dispatch,data,loading,page,size}) {
     {
       title: '操作',
       key: 'operation',
-      width:'20%',
+      width:'25%',
       render:(record)=>{
         const linkProps={
           pathname:'/accredit/company',

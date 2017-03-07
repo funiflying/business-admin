@@ -1,14 +1,13 @@
 import React from 'react';
 import { connect } from 'dva';
 import {routerRedux} from 'dva/router'
-import { Breadcrumb, Alert } from 'antd';
 import {getSession,setSession} from '../utils/index'
 import styles from '../components/Layout/main.less';
 import Header from '../components/Layout/Header';
 import Sider from '../components/Layout/Sider'
 import Bread from '../components/Layout/Bread'
 import Footer from '../components/Layout/Footer'
-function App({ children,location,routes,dispatch,app}) {
+function App({ children,location,routes,dispatch,app,status}) {
   let {darkTheme}=app;
   const siderProps={
     location,
@@ -16,14 +15,18 @@ function App({ children,location,routes,dispatch,app}) {
     changeTheme(){
       dispatch({type:"app/changeTheme"})
     }
-  }
+  };
   function logout() {
-    setSession('PROFILE',{});
-    dispatch(routerRedux.push({
-      pathname:"login"
-    }))
+    dispatch({
+      type:"login/logout",
+      payload:{}
+    })
   }
-
+  function logoutSuccess() {
+    dispatch(routerRedux.push({
+       pathname:'login'
+    }));
+  }
   let user=getSession('PROFILE');
   if(!user||!user.nickName){
     dispatch(routerRedux.push({
@@ -37,7 +40,7 @@ function App({ children,location,routes,dispatch,app}) {
               <Sider {...siderProps}/>
           </aside>
           <div className={styles.main}>
-              <Header user={name} logout={logout} />
+              <Header user={name} logout={logout} isLogout={status} logoutSuccess={logoutSuccess}/>
               <Bread routes={routes}/>
               <div className={styles.container}>
                   <div className={styles.content}>
@@ -49,11 +52,12 @@ function App({ children,location,routes,dispatch,app}) {
       </div>
   );
 }
-
 function mapStateToProps(state) {
   let {app}=state;
+  const {status}=state.login;
   return {
-    app
+    app,
+    status
   };
 }
 

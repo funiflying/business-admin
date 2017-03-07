@@ -5,7 +5,8 @@ class Conf extends Component{
   constructor(props){
     super(props)
   }
-  okHandler(){
+  okHandler(e){
+    e.preventDefault();
     const {onOk}=this.props;
     const {id} = this.props.record;
     this.props.form.validateFields((err, values) => {
@@ -71,12 +72,12 @@ class Conf extends Component{
           >
             <span className="ant-form-text">{thirdName}</span>
           </FormItem>
-          <FormItem
+         {/* <FormItem
             {...formItemLayout}
             label="应用状态"
           >
           <Switch checkedChildren={'启用'} unCheckedChildren={'禁用'} disabled defaultValue={Boolean(status)}/>
-          </FormItem>
+          </FormItem>*/}
           <FormItem
             {...formItemLayout}
             label="主机地址"

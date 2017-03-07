@@ -9,5 +9,4 @@ function IndexPage({ location }) {
 }
 IndexPage.propTypes = {
 };
-
 export default connect()(IndexPage);

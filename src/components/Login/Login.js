@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import {
-  Icon,message,Button, Row,Col,Form,Input,Select
+import {Icon,message,Button, Row,Col,Form,Input,Select
 } from 'antd';
 import sha1 from 'sha1';
 import md5 from 'md5'
@@ -9,29 +8,34 @@ import config from '../../utils/config'
 import styles from './login.less';
 const FormItem = Form.Item;
 
-class LoginComponent extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
   }
+
   handleOk(e){
      e.preventDefault();
+     const {onOk}=this.props;
      this.props.form.validateFields((err, values) => {
        if (!err) {
          //md5(sha1(values.pwd))
          const timestamp=new Date().getTime();
          const nonce=Math.random().toString(36);
-         const appId="f94b1d87d0d94d698db7ddbfad25571a";
+         const appId="f94b1d87d0d94d698db7ddbfad25571a"//er3b6u87j7877k78wedfgt565uk7877i;
          const sign=signature(appId,timestamp,nonce);
-         this.props.onLogin(Object.assign({},values,{appId,signature:sign,timestamp,nonce}))
+         onOk(Object.assign({},values,{appId,signature:sign,timestamp,nonce}));
        }
      });
   }
-  render(){
-    const { getFieldDecorator } = this.props.form;
-    const { loading,loginSuccess,data } = this.props;
-    if(data&&data.status==1){
+  componentWillReceiveProps(nextProps){
+    const {loading,isLogin,loginSuccess} =nextProps;
+    if(!loading&&isLogin==1){
       loginSuccess()
     }
+  }
+  render(){
+    const { getFieldDecorator } = this.props.form;
+    const { loading } = this.props;
     return(
       <div className={styles.form}>
         <div className={styles.logo}>
@@ -69,6 +73,4 @@ class LoginComponent extends Component {
     )
   }
 }
-
-
-export default Form.create()(LoginComponent);
+export default Form.create()(Login);
