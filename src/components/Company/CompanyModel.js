@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Modal, Form, Input,Cascader } from 'antd';
 const FormItem = Form.Item;
-import region from '../../utils/region.min';
-
 class CompanyModel extends Component {
 
   constructor(props) {
@@ -29,26 +27,20 @@ class CompanyModel extends Component {
     const {resetFields}=this.props.form;
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        onOk(Object.assign(values,{cityId:values.cityId[values.cityId.length-1]}));
+        onOk(values);
         this.hideModelHandler();
         resetFields()
       }
     });
   };
-
   render() {
-    const { children,title } = this.props;
+    const { children,title,isEdit } = this.props;
     const { getFieldDecorator } = this.props.form;
-    const { company, boss,email, address,phone,fax,contract,contractPhone,readme,cityId } = this.props.record;
+    const { company, boss,email, address,phone,fax,contract,contractPhone,readme,adminPwd,adminAccount } = this.props.record;
     const formItemLayout = {
       labelCol: { span: 6 },
       wrapperCol: { span: 16 },
     };
-    const regionProps={
-      options:region,
-      showSearch:true,
-      allowClear:false
-    }
     return (
       <span>
         <span onClick={this.showModelHandler}>
@@ -60,6 +52,7 @@ class CompanyModel extends Component {
           onOk={this.okHandler}
           onCancel={this.hideModelHandler}
           maskClosable={false}
+          width="600px"
         >
           <Form horizontal onSubmit={this.okHandler}>
             <FormItem
@@ -190,6 +183,38 @@ class CompanyModel extends Component {
                 getFieldDecorator('readme', {
                   initialValue: readme,
                 })(<Input type="textarea" rows={4}/>)
+              }
+            </FormItem>
+            <FormItem
+              {...formItemLayout}
+              label="管理员账号"
+            >
+              {
+                getFieldDecorator('adminAccount', {
+                  initialValue: adminAccount,
+                  rules: [
+                    {
+                      required: false,
+                      message: '请填写管理员账号'
+                    }
+                  ]
+                })(<Input disabled={isEdit}/>)
+              }
+            </FormItem>
+            <FormItem
+              {...formItemLayout}
+              label="密码"
+            >
+              {
+                getFieldDecorator('adminPwd', {
+                  initialValue: adminPwd,
+                  rules: [
+                    {
+                      required: false,
+                      message: '请填写密码'
+                    }
+                  ]
+                })(<Input type="password" autoComplete={false} disabled={isEdit}/>)
               }
             </FormItem>
           </Form>

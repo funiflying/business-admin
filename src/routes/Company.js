@@ -86,7 +86,7 @@ function Company({dispatch,data,loading,page,size}) {
         };
          return (<div className={styles['antd-operation-link']}>
            <Link to={`organization?eid=${record.id}`} className={styles['text-green']}>组织机构</Link>
-           <CompanyModel record={record} onOk={editHandler.bind(null, record.id)} title="编辑企业信息">
+           <CompanyModel record={record} onOk={editHandler.bind(null, record.id)} title="编辑企业信息" isEdit={true}>
              <a href="javascript:void(0)" className={styles['edit-text']}>编辑</a>
            </CompanyModel>
            <Popconfirm title="确定删除?" onConfirm={deleteHandler.bind(null, record.id)}>

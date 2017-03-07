@@ -10,6 +10,7 @@ export default {
   COMMUNITY:"/api/community/getByWhere",//查询社区
   COMMUNITY_LIST:"/api/community/getCommunityByOrganization",//特定组织机构社区列表
   COMMUNITY_LIST_ALL:"/api/community/getCommunityByOrganizationAll",//组织机构所有社区列表
+  COMMUNITY_LIST_BY_COMPANY:"/api/community/getCommunityByEnterprise",//企业下所有社区
   COMMUNITY_CREATE:"/api/community/insertCommunity",//新增社区
   COMMUNITY_DELETE:"/api/community/deleteCommunity",//删除社区
   COMMUNITY_EDIT:"/api/community/updateCommunity",//编辑社区
@@ -43,5 +44,9 @@ export default {
   ROLE_COMPANY_LIST:"/api/permission/system/getEnterpriseRole",//企业角色列表
   ROLE_COMMUNITY_LIST:"/api/permission/system/getCommunityRole",//社区角色列表
   ROLE_COMMUNITY_BINDING:"/api/permission/system/bindRoleToCommunity",//企业绑定角色
+  ROOM_LIST:"/api/community/getRoomByBuilding",//获取某楼所有房间
+  ROOM_DELETE:"/api/community/deleteRoom",//删除房间
+  ROOM_CREATE:"/api/community/insertRoom",//新增房间
+  ROOM_EDIT:"/api/community/updateRoom",//修改房间
 
 }

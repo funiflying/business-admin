@@ -26,17 +26,14 @@ class LoginComponent extends Component {
        }
      });
   }
-  componentWillReceiveProps(nextProps){
-    if(nextProps.data.status){
-        nextProps.loginSuccess()
-    }else if(nextProps.data.status==0){
-        nextProps.loginFailed();
-        message.info(nextProps.data.message)
-    }
-  }
   render(){
     const { getFieldDecorator } = this.props.form;
-    const { loading } = this.props;
+    const { loading,loginSuccess,data } = this.props;
+    if(data&&data.status==1){
+      loginSuccess()
+    }else if(data&&data.status==0) {
+      message.info(data&&data.message||'登录失败');
+    }
     return(
       <div className={styles.form}>
         <div className={styles.logo}>

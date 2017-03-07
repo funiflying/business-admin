@@ -13,8 +13,9 @@ const app = dva({
           message.info(err.message)
     }
 });
-
 app.model(require("./models/users"));
+
+app.model(require("./models/room"));
 
 app.model(require("./models/accredit"));
 

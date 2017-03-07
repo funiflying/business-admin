@@ -3,16 +3,16 @@ import { connect } from 'dva';
 import BingdingComponent from '../components/Accredit/Bingding'
 function AccreditCompany({dispatch,roles,loading,eid,accredit,location}) {
   function submitHandler(values=[]) {
-    let permissionList=[];
+    let roleList=[];
     values.map((key)=>{
       var obj={
         roleId:key
       };
-      permissionList.push(obj);
+      roleList.push(obj);
     });
     dispatch({
       type:'accredit/patchCompany',
-      payload:Object.assign({},{eid},{permissionList})
+      payload:Object.assign({},{eid},{roleList})
     })
   }
   let targetKeys=[];

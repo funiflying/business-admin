@@ -10,36 +10,32 @@ export default {
     }
   },
   reducers: {
-    save(state,{payload:{data,id,page,size,community}}){
-      return {...state,page,data,size,id,...{community:community.data}};
-    },
-    responseStatus(state,{payload:{data}}){
-      return Object.assign({},state,data.data);
+    save(state,{payload:{data,id,page,size}}){
+      return {...state,page,data,size,id};
     }
   },
   effects: {
     *fetch({payload:{id,page=1,size=20,name='',code=''}},{call,put}){
-      var data= yield call(Service.fetch,{page,size,name,id,code});
-      var community=yield call(fetch,{page,size});
-      yield put({ type: 'save', payload: {data,id,community,page:parseInt(page),size:parseInt(size)} });
+      let data= yield call(Service.fetch,{page,size,name,id,code});
+      yield put({ type: 'save', payload: {data,id,page:parseInt(page),size:parseInt(size)} });
     },
     *fetchCommunity({payload:{pageNo=1,name,page,size,id}},{call,put,select}){
-      var community=yield call(fetch,{page:pageNo,name});
+      let community=yield call(fetch,{page:pageNo,name});
       const data={
          data:yield select(state=>state.building.data)
       };
       yield put({ type: 'save', payload: {data,community,page,size,id}});
     },
     *remove({payload:id},{call,put}){
-      var data= yield call(Service.remove,id);
+      let data= yield call(Service.remove,id);
       yield put({type:'reload'});
     },
     *patch({payload:values},{call,put}){
-      var data=yield call(Service.patch,values);
+      let data=yield call(Service.patch,values);
       yield put({type:'reload'});
     },
     *create({payload:values},{call,put}){
-      var data=yield call(Service.create,values);
+      let data=yield call(Service.create,values);
     },
     *reload(action,{put,select}){
       const page=yield select(state=>state.building.page);

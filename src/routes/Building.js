@@ -1,16 +1,15 @@
 import React from 'react';
 import { connect } from 'dva';
 import {Link} from 'dva/router'
-import { Table,Popconfirm,message,Button,Tag,Tree,Row,Col} from 'antd';
+import { Table,Popconfirm,Row,Col} from 'antd';
 import { routerRedux } from 'dva/router';
-import TreeComponent from '../components/Building/Tree';
 import SearchComponent from '../components/Building/Search';
 import BuildingModel from '../components/Building/BuildingModel';
 
 import styles from './Company.less';
 
 
-function App({dispatch,data,loading,page,size,community,id,location}) {
+function App({dispatch,data,loading,page,size,id,location}) {
   function pageChangeHandler(page) {
     dispatch(routerRedux.push({
       pathname: '/building',
@@ -53,7 +52,7 @@ function App({dispatch,data,loading,page,size,community,id,location}) {
       render:(record)=>{
         const linkProps={
           pathname:'/room',
-          query:{id:record.id},
+          query:{buildingId:record.id},
           state:{record}
         };
         return (<div className={styles['antd-operation-link']}>
@@ -107,10 +106,10 @@ function App({dispatch,data,loading,page,size,community,id,location}) {
   return (
     <div>
       <Row>
-        <Col span="6">
-          <TreeComponent treeProps={treeProps} treeData={community} onPageChange={onPageChange} onSearch={onSearch}/>
+        <Col span="0">
+{/*          <TreeComponent treeProps={treeProps} treeData={community} onPageChange={onPageChange} onSearch={onSearch}/>*/}
         </Col>
-        <Col span="18">
+        <Col span="24">
           <SearchComponent onSearch={search}/>
           <Table
             columns={columns}
@@ -125,14 +124,13 @@ function App({dispatch,data,loading,page,size,community,id,location}) {
   );
 }
 function mapStateToProps(state) {
-  const { data,page,size,status,community,id} = state.building;
+  const { data,page,size,status,id} = state.building;
   return {
     loading: state.loading.models.building,
     data,
     page,
     size,
     status,
-    community,
     id
   };
 }

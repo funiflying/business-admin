@@ -15,14 +15,14 @@ function Login({dispatch,loading,isLogin,data}) {
     dispatch(routerRedux.push({
       pathname: '/home'
     }))
-  }
+  };
   function loginFailed() {
     dispatch({
       type:'login/loginFailed'
     })
-  }
+  };
   return (
-    <LoginComponent loading={loading} onLogin={onLogin} data={data} dispatch={dispatch} isLogin={isLogin} loginSuccess={loginSuccess} loginFailed={loginFailed}/>
+    <LoginComponent loading={loading} onLogin={onLogin} data={data}  loginSuccess={loginSuccess} loginFailed={loginFailed}/>
   )
 }
 function  mapStateToProps(state) {

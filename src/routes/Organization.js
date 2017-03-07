@@ -86,7 +86,7 @@ function Organ({dispatch,data,loading,page,company,eid,location,nodes,list,size,
       dataIndex: 'level',
       key: 'level',
     },
-    {
+    /*{
       title: '操作',
       dataIndex: 'operation',
       key: 'operation',
@@ -104,7 +104,7 @@ function Organ({dispatch,data,loading,page,company,eid,location,nodes,list,size,
           </Popconfirm>
         </div>)
       }
-     }
+     }*/
   ];
   const pagination={
     total:list.length,

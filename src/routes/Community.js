@@ -1,16 +1,11 @@
 import React from 'react';
 import { connect } from 'dva';
-import { Table,Popconfirm,message,Button} from 'antd';
+import { Table,Popconfirm,message,Button,Row,Col} from 'antd';
+import TreeComponent from '../components/Community/Tree'
 import { routerRedux,Link } from 'dva/router';
 import styles from './Company.less'
-function Community({dispatch,data,loading,page,size,status}) {
-  function pageChangeHandler(page) {
-    dispatch(routerRedux.push({
-      pathname: '/community',
-      query: { page,size },
-    }));
-  }
-  function search(value) {
+function Community({dispatch,list,loading,page,size,company,nodes,eid,orgId}) {
+  function onSearch(value) {
     dispatch(routerRedux.push({
       pathname: '/community',
       query: value ,
@@ -19,7 +14,7 @@ function Community({dispatch,data,loading,page,size,status}) {
   function deleteHandler(id) {
     dispatch({
       type: 'community/remove',
-      payload: id ,
+      payload: {id} ,
     });
   }
   function editHandler(id,values) {
@@ -33,6 +28,23 @@ function Community({dispatch,data,loading,page,size,status}) {
       type: 'community/create',
       payload: values ,
     });
+  }
+  function loadData(node){
+    const {eventKey,isOrgan,title}=node.props;
+    if(isOrgan){
+      dispatch({
+        type: 'community/fetchByOrgan',
+        payload: {orgId:eventKey}
+      });
+    }else {
+      dispatch({
+        type:"organization/fetchOnly",
+        payload:{eid:eventKey}
+      });
+    }
+  }
+  function selectHandler({node}) {
+    loadData(node)
   }
   const columns = [
     {
@@ -68,47 +80,58 @@ function Community({dispatch,data,loading,page,size,status}) {
         return (<div className={styles['antd-operation-link']}>
           <Link to={linkProps} className={styles['text-green']}>授权</Link>
           <Link to={link} className={styles['text-green']}>查看楼宇</Link>
-          <Popconfirm title="确定删除?" onConfirm={deleteHandler.bind(null, record.id)}>
+         {/* <Popconfirm title="确定删除?" onConfirm={deleteHandler.bind(null, record.id)}>
             <a href="javascript:void(0)">删除</a>
-          </Popconfirm>
+          </Popconfirm>*/}
         </div>)
       }
-    },
+    }
   ];
   const pagination={
-    total:data.count,
-    showTotal:(total)=> `共 ${total} 家企业`,
+    total:list.count,
+    showTotal:(total)=> `共 ${total} 条数据`,
     showSizeChanger:true,
     pageSize:size,
-    onShowSizeChange:(current,pageSize)=>{
-      dispatch(routerRedux.push({
-        pathname: '/community',
-        query: { page:current,size:pageSize },
-      }));
+    onShowSizeChange:(current,size)=>{
+      dispatch({
+        type: 'community/size',
+        query: {size },
+      });
     },
-    onChange:pageChangeHandler
   }
   return (
     <div>
-      <Table
-        columns={columns}
-        dataSource={data.data}
-        rowKey={record => record.id}
-        pagination={pagination}
-        loading={loading}
-      />
+      <Row>
+        <Col span="6">
+           <TreeComponent rootData={company} nodesData={nodes} loadData={loadData} selectHandler={selectHandler} orgId={orgId}/>
+        </Col>
+        <Col span="18">
+          <Table
+            columns={columns}
+            dataSource={list.data}
+            rowKey={record => record.id}
+            pagination={pagination}
+            loading={loading}
+          />
+        </Col>
+      </Row>
+
     </div>
   );
 }
 function mapStateToProps(state) {
-  const { data,page,size,status} = state.community;
+  const { list,size,eid,orgId} = state.community;
+  const {data,page}=state.company;
+  const {nodes} =state.organization;
   return {
     loading: state.loading.models.community,
-    data,
+    company:data,
+    list,
     page,
     size,
-    status
+    nodes,
+    eid,
+    orgId
   };
 }
 export default connect(mapStateToProps)(Community);
-

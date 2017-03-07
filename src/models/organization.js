@@ -20,6 +20,12 @@ export default {
     }
   },
   effects: {
+    *fetchOnly({payload:{eid,title,size}},{call,put,select}){
+      var res= yield call(Service.fetch,{eid});
+      var nodes=res.data||[];
+      const company=yield select(state=>state.organization.company,size);
+      yield put({ type: 'save', payload: {nodes,company,title,eid}});
+    },
     *fetch({payload:{eid,title,size}},{call,put,select}){
       var res= yield call(Service.fetch,{eid});
       var nodes=res.data||[];
@@ -49,7 +55,7 @@ export default {
     },
     *patch({payload:values},{call,put}){
       var data=yield call(Service.patch,values);
-      yield put({type:'reload'});
+      yield put({type:'reload',payload:{eid:values.eid}});
     },
     *create({payload:{values,eid}},{call,put}){
       var data=yield call(Service.create,values);

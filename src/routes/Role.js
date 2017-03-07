@@ -15,6 +15,7 @@ function Authorize({dispatch,data,loading,size,page}) {
     }));
   }
   function editHandler(id,values) {
+    console.log(values)
     dispatch({
       type: 'role/patch',
       payload: { id, ...values },

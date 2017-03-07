@@ -7,8 +7,8 @@ export default {
     status:0
   },
   reducers: {
-    save(state,{payload:{data,page,size}}){
-      return {...state,page,data,size};
+    save(state,{payload:{data,page,size,eid}}){
+      return {...state,page,data,size,eid};
     }
   },
   effects: {
@@ -22,7 +22,7 @@ export default {
     },
     *patch({payload:values},{call,put}){
         var data=yield call(Service.patch,values);
-        yield put({type:'reload'});
+        yield put({type:'reload',payload:{eid:values.eid}});
     },
     *execute({payload:values},{call,put}){
       var data=yield call(Service.execute,values);

@@ -13,24 +13,25 @@ export default {
     }
   },
   effects: {
-    *fetch({payload:{name=''}},{call,put}){
-      var data= yield call(Service.fetch,{name});
+    *fetch({payload:{name}},{call,put}){
+      let data= yield call(Service.fetch,{name});
       yield put({ type: 'save', payload: {data} });
     },
     *remove({payload:id},{call,put}){
-      var data= yield call(Service.remove,id);
+      yield call(Service.remove,id);
       yield put({type:'reload'});
     },
     *patch({payload:values},{call,put}){
-      var data=yield call(Service.patch,values);
+      yield call(Service.patch,values);
       yield put({type:'reload'});
     },
     *create({payload:values},{call,put}){
-      var data=yield call(Service.create,values);
-      yield put({type:'reload'})
+      yield call(Service.create,values);
+      yield put({type:'reload'});
     },
     *reload(action,{put,select}){
-      yield put({type:'fetch'})
+      const name=yield select(state=>state.authorize.name)
+      yield put({type:'fetch',payload:{name}});
     }
   },
   subscriptions: {
