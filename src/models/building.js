@@ -26,21 +26,23 @@ export default {
       };
       yield put({ type: 'save', payload: {data,community,page,size,id}});
     },
-    *remove({payload:id},{call,put}){
+    *remove({payload:id},{call,put,select}){
       let data= yield call(Service.remove,id);
-      yield put({type:'reload'});
+      const bid=yield select(state=>state.building.id);
+      yield put({type:'reload',payload:{id:bid}});
     },
     *patch({payload:values},{call,put}){
       let data=yield call(Service.patch,values);
-      yield put({type:'reload'});
+      const id=values.communityId;
+      yield put({type:'reload',payload:{id}});
     },
     *create({payload:values},{call,put}){
       let data=yield call(Service.create,values);
     },
-    *reload(action,{put,select}){
+    *reload({payload:{id}},{put,select}){
       const page=yield select(state=>state.building.page);
       const size=yield select(state=>state.building.size);
-      yield put({type:'fetch',payload:{page,size}})
+      yield put({type:'fetch',payload:{page,size,id}});
     }
   },
   subscriptions: {

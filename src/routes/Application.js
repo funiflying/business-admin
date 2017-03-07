@@ -37,16 +37,16 @@ function App({dispatch,loading,page,size,status,data={}}) {
       payload: values ,
     });
   }
-  function forbidden(id) {
+  function forbidden(record) {
     dispatch({
       type: 'application/patch',
-      payload: {id,status:0} ,
+      payload: {...record,status:0} ,
     });
   }
-  function start(id) {
+  function start(record) {
     dispatch({
       type: 'application/patch',
-      payload: {id,status:1}  ,
+      payload: {...record,status:1}  ,
     });
   }
   const columns = [
@@ -90,8 +90,8 @@ function App({dispatch,loading,page,size,status,data={}}) {
         };
         return (<div className={styles['antd-operation-link']}>
           {
-            record.status==0? (<Popconfirm title="确定启用？" onConfirm={start.bind(null,record.id)}><a href="javascript:void(0)" className={styles['text-green']}>启用</a></Popconfirm>):
-              (<Popconfirm title="确定禁用？" onConfirm={forbidden.bind(null,record.id)}><a href="javascript:void(0)" className={styles['text-orange']}>禁用</a></Popconfirm>)
+            record.status==0? (<Popconfirm title="确定启用？" onConfirm={start.bind(null,record)}><a href="javascript:void(0)" className={styles['text-green']}>启用</a></Popconfirm>):
+              (<Popconfirm title="确定禁用？" onConfirm={forbidden.bind(null,record)}><a href="javascript:void(0)" className={styles['text-orange']}>禁用</a></Popconfirm>)
           }
           <Link to={linkProps} style={{color:'#7265e6'}}>配置</Link>
           <AppComponent record={record} onOk={editHandler.bind(null, record.id)} title="编辑应用">

@@ -87,22 +87,6 @@ class CompanyModel extends Component {
                 })(<Input />)
               }
             </FormItem>
-            {/* <FormItem
-               {...formItemLayout}
-               label="城市"
-             >
-               {
-                 getFieldDecorator('cityId', {
-                   initialValue: cityId,
-                   rules: [
-                     {
-                       required: true,
-                       message: '请选择城市'
-                     }
-                   ]
-                 })(<Cascader {...regionProps} placeholder=""/>)
-               }
-               </FormItem>*/}
             <FormItem
               {...formItemLayout}
               label="企业地址"
@@ -143,6 +127,16 @@ class CompanyModel extends Component {
                 })(<Input type="email"/>)
               }
             </FormItem>
+             <FormItem
+               {...formItemLayout}
+               label="备注"
+             >
+              {
+                getFieldDecorator('readme', {
+                  initialValue: readme,
+                })(<Input type="textarea" rows={4}/>)
+              }
+            </FormItem>
             <FormItem
               {...formItemLayout}
               label="联系人"
@@ -175,53 +169,45 @@ class CompanyModel extends Component {
                 })(<Input />)
               }
             </FormItem>
-             <FormItem
-               {...formItemLayout}
-               label="备注"
-             >
-              {
-                getFieldDecorator('readme', {
-                  initialValue: readme,
-                })(<Input type="textarea" rows={4}/>)
-              }
-            </FormItem>
-            <FormItem
-              {...formItemLayout}
-              label="管理员账号"
-            >
-              {
-                getFieldDecorator('adminAccount', {
-                  initialValue: adminAccount,
-                  rules: [
+            {
+              isEdit?null:(
+                <div>
+                <FormItem
+                  {...formItemLayout}
+                  label="管理员账号"
+                >
+                  {
+                    getFieldDecorator('adminAccount', {
+                      initialValue: adminAccount,
+                      rules: [
+                        {
+                          required: true,
+                          message: '请填写管理员账号'
+                        }
+                      ]
+                    })(<Input autoComplete="off"/>)
+                  }
+                </FormItem>
+                <FormItem {...formItemLayout}label="密码" >
                     {
-                      required: false,
-                      message: '请填写管理员账号'
+                      getFieldDecorator('adminPwd', {
+                      initialValue: adminPwd,
+                      rules: [
+                      {
+                        required: true,
+                        message: '请填写密码'
+                      }
+                      ]
+                    })(<Input type="password" autoComplete="off"/>)
                     }
-                  ]
-                })(<Input disabled={isEdit}/>)
-              }
-            </FormItem>
-            <FormItem
-              {...formItemLayout}
-              label="密码"
-            >
-              {
-                getFieldDecorator('adminPwd', {
-                  initialValue: adminPwd,
-                  rules: [
-                    {
-                      required: false,
-                      message: '请填写密码'
-                    }
-                  ]
-                })(<Input type="password" autoComplete={false} disabled={isEdit}/>)
-              }
-            </FormItem>
+                      </FormItem>
+
+                </div>)
+             }
           </Form>
         </Modal>
       </span>
     );
   }
 }
-
 export default Form.create()(CompanyModel);

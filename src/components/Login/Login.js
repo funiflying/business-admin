@@ -31,8 +31,6 @@ class LoginComponent extends Component {
     const { loading,loginSuccess,data } = this.props;
     if(data&&data.status==1){
       loginSuccess()
-    }else if(data&&data.status==0) {
-      message.info(data&&data.message||'登录失败');
     }
     return(
       <div className={styles.form}>

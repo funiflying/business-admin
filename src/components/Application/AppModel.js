@@ -34,7 +34,6 @@ class AppModel extends Component {
       }
     });
   };
-
   render() {
     const { children,title } = this.props;
     const { getFieldDecorator } = this.props.form;
@@ -63,6 +62,10 @@ class AppModel extends Component {
               {
                 getFieldDecorator('thirdName', {
                   initialValue: thirdName,
+                  rules:[{
+                    required:true,
+                    message:'输入应用名称'
+                  }]
                 })(<Input />)
               }
             </FormItem>
@@ -73,6 +76,10 @@ class AppModel extends Component {
               {
                 getFieldDecorator('appUrl', {
                   initialValue: appUrl,
+                  rules:[{
+                    required:true,
+                    message:'输入业主端页面'
+                  }]
                 })(<Input />)
               }
             </FormItem>
@@ -83,6 +90,10 @@ class AppModel extends Component {
               {
                 getFieldDecorator('iconUrl', {
                   initialValue: iconUrl,
+                  rules:[{
+                    required:true,
+                    message:'输入图标URL'
+                  }]
                 })(<Input />)
               }
             </FormItem>
@@ -93,6 +104,10 @@ class AppModel extends Component {
               {
                 getFieldDecorator('manageUrl', {
                   initialValue: manageUrl,
+                  rules:[{
+                    required:true,
+                    message:'输入物业端页面'
+                  }]
                 })(<Input />)
               }
             </FormItem>

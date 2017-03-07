@@ -107,7 +107,7 @@ function Organ({dispatch,data,loading,page,company,eid,location,nodes,list,size,
      }*/
   ];
   const pagination={
-    total:list.length,
+    total:list&&list.length,
     showTotal:(total)=> `共 ${total} 条记录`,
     showSizeChanger:true,
     pageSize:size,

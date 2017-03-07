@@ -83,8 +83,7 @@ class TreeComponent extends Component{
     };
     return (
       <div>
-          <Search style={{ width: '80%' }} placeholder="企业名称" onSearch={onSearch} />
-        <br/>
+
         <Tree {...props} expandedKeys={this.state.expandedKeys}>
             {generator(rootData.data,nodesData)}
         </Tree>

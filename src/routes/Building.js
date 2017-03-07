@@ -28,10 +28,10 @@ function App({dispatch,data,loading,page,size,id,location}) {
       payload: id ,
     });
   }
-  function editHandler(id,values) {
+  function editHandler(bid,values) {
     dispatch({
       type: 'building/patch',
-      payload: { id, ...values },
+      payload:Object.assign({},{communityId:id},{ bid, ...values })
     });
   }
   const columns = [

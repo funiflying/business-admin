@@ -7,7 +7,6 @@ function IndexPage({ location }) {
        </div>
   );
 }
-
 IndexPage.propTypes = {
 };
 
