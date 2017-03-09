@@ -7,6 +7,7 @@ export default {
   COMPANY_CREATE:"/api/enterprise/insertEnterprise",//新增企业
   COMPANY_UPLOAD:"/api/enterprise/cloud/uploadExcel",//上传
   COMPANY_READ:"/api/enterprise/cloud/execute",//读取上传后的数据
+  COMPANY_READ_STATUS:"/api/enterprise/cloud/getLoadStatus",//数据执行状态
   COMMUNITY:"/api/community/getByWhere",//查询社区
   COMMUNITY_LIST:"/api/community/getCommunityByOrganization",//特定组织机构社区列表
   COMMUNITY_LIST_ALL:"/api/community/getCommunityByOrganizationAll",//组织机构所有社区列表

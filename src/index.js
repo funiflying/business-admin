@@ -38,7 +38,11 @@ app.model(require("./models/login"));
 app.model(require("./models/app"));
 
 // 2. Plugins
-app.use(createLoading());
+app.use(createLoading({
+  effects:{
+    company:false
+  }
+}));
 //app.use(createLogger());
 
 // 3. Model

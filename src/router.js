@@ -25,7 +25,7 @@ function RouterConfig({ history}) {
   }
   return (
     <Router history={history} onUpdate={requireAuth}>
-      <Route  component={App} breadcrumbName="管理中心" >
+      <Route  component={App} >
         <Route path="/home" component={IndexPage} breadcrumbName="首页"   />
         <Route path="/users" component={Users} breadcrumbName="用户管理" />
         <Route path="/company" component={Company} breadcrumbName="企业管理"/>

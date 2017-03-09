@@ -6,7 +6,7 @@ import SearchComponent from '../components/Company/Search';
 import CompanyModel from '../components/Company/CompanyModel';
 import UploadModel from '../components/Company/UploadModel';
 import styles from './Company.less'
-function Company({dispatch,data,loading,page,size}) {
+function Company({dispatch,data,loading,page,size,status}) {
   function pageChangeHandler(page) {
     dispatch(routerRedux.push({
       pathname: '/company',
@@ -40,6 +40,13 @@ function Company({dispatch,data,loading,page,size}) {
   function execute(eid) {
     dispatch({
       type: 'company/execute',
+      payload: eid
+    });
+  }
+  function execResult(eid) {
+
+    dispatch({
+      type: 'company/execResult',
       payload: eid ,
     });
   }
@@ -92,7 +99,7 @@ function Company({dispatch,data,loading,page,size}) {
            <Popconfirm title="确定删除?" onConfirm={deleteHandler.bind(null, record.id)}>
              <a href="javascript:void(0)">删除</a>
            </Popconfirm>
-           <UploadModel record={record} onOk={execute.bind(null, record.id)}>
+           <UploadModel record={record} onOk={execute.bind(null, record.id)} exec={execResult.bind(null,record.id)} status={status.data}>
              <a href="javascript:void(0)" className={styles['edit-text']}>数据导入</a>
            </UploadModel>
            <Link to={linkProps} className={styles['text-green']}>授权</Link>
@@ -127,12 +134,13 @@ function Company({dispatch,data,loading,page,size}) {
   );
 }
 function mapStateToProps(state) {
-  const { data,page,size} = state.company;
+  const { data,page,size,status,loading} = state.company;
   return {
-    loading: state.loading.models.company,
+    loading,
     data,
     page,
-    size
+    size,
+    status
   };
 }
 export default connect(mapStateToProps)(Company);

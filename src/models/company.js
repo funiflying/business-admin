@@ -4,21 +4,33 @@ export default {
   state: {
     data:{},
     size:20,
-    status:0
+    status:{},
+    loading:false
   },
   reducers: {
-    save(state,{payload:{data,page,size,eid}}){
-      return {...state,page,data,size,eid};
+    save(state,{payload:{data,page,size,eid,loading}}){
+      return {...state,page,data,size,eid,loading};
+    },
+    exec(state,{payload:{status}}){
+      return {...state,status};
+    },
+    showLoading (state) {
+      return { ...state, loading: true }
+    },
+    hiddenLoading (state) {
+      return { ...state, loading: false }
     }
   },
   effects: {
     *fetch({payload:{page=1,size=20,name}},{call,put}){
+      yield put({ type: 'showLoading' });
       var data= yield call(Service.fetch,{page,size,name});
-      yield put({ type: 'save', payload: {data,page:parseInt(page),size:parseInt(size)} });
+      yield put({ type: 'save', payload: {data,page:parseInt(page),size:parseInt(size)}});
+      yield put({ type: 'hiddenLoading' });
     },
     *remove({payload:id},{call,put}){
        var data= yield call(Service.remove,id);
-        yield put({type:'reload'});
+       yield put({type:'reload'});
     },
     *patch({payload:values},{call,put}){
         var data=yield call(Service.patch,values);
@@ -26,6 +38,11 @@ export default {
     },
     *execute({payload:values},{call,put}){
       var data=yield call(Service.execute,values);
+    },
+    *execResult({payload:id},{call,put}){
+      var status=yield call(Service.execResult,id);
+      yield put({type:'exec',payload:{status}})
+
     },
     *create({payload:values},{call,put}){
      var data=yield call(Service.create,values);

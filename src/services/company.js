@@ -21,3 +21,6 @@ export function create(values) {
 export function execute(id) {
   return request(constant.COMPANY_READ+`?eid=${id}`)
 }
+export function execResult(id) {
+  return request(constant.COMPANY_READ_STATUS+`?eid=${id}`)
+}
