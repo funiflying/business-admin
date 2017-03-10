@@ -53,6 +53,7 @@ class AppModel extends Component {
           visible={this.state.visible}
           onOk={this.okHandler}
           onCancel={this.hideModelHandler}
+          key={Math.random()}
         >
           <Form horizontal onSubmit={this.okHandler}>
             <FormItem

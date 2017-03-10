@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
+import {  routerRedux} from 'dva/router';
 import BingdingComponent from '../components/Accredit/Bingding'
 function AccreditCompany({dispatch,roles,loading,eid,accredit,location}) {
   function submitHandler(values=[]) {
@@ -14,6 +15,9 @@ function AccreditCompany({dispatch,roles,loading,eid,accredit,location}) {
       type:'accredit/patchCompany',
       payload:Object.assign({},{eid},{roleList})
     })
+      dispatch(routerRedux.push({
+          pathname:'company'
+      }));
   }
   let targetKeys=[];
   accredit.map((key)=>{
@@ -29,7 +33,6 @@ function AccreditCompany({dispatch,roles,loading,eid,accredit,location}) {
     </div>
   );
 }
-
 function mapStateToProps(state) {
   const {data}=state.role;
   const {eid,accredit}=state.accredit;

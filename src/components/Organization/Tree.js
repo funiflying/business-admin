@@ -9,7 +9,7 @@ class TreeComponent extends Component{
     this.state={
       size:20,
       current:1,
-      expandedKeys:['0',this.props.eid],
+      expandedKeys:[this.props.eid],
       selectedKeys:[this.props.eid]
     }
   }
@@ -83,10 +83,9 @@ class TreeComponent extends Component{
     };
     return (
       <div>
+        <Search placeholder="企业名称" onSearch={onSearch} style={{"width":"65%"}}/>
         <Tree {...props} expandedKeys={this.state.expandedKeys}>
-          <TreeNode title="全部机构" key="0">
             {generator(rootData.data,nodesData)}
-          </TreeNode>
         </Tree>
         <br/>
         <Pagination size="small" {...pagination}/>

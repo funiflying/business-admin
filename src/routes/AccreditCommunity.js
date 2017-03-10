@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
+import { routerRedux } from 'dva/router';
 import BingdingComponent from '../components/Accredit/Bingding'
 function AccreditCommunity({dispatch,roles,loading,communityId,accredit,location}) {
   function submitHandler(values=[]) {
@@ -13,7 +14,10 @@ function AccreditCommunity({dispatch,roles,loading,communityId,accredit,location
     dispatch({
       type:'accredit/patchCommunity',
       payload:Object.assign({},{communityId},{roleList})
-    })
+    });
+    dispatch(routerRedux.push({
+          pathname:'community'
+    }));
   }
   let targetKeys=[];
   accredit.map((key)=>{

@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
+import { routerRedux } from 'dva/router';
 import BingdingComponent from '../components/Accredit/Bingding'
 
 function Accredit({dispatch,authorize,location,loading,roleId,accredit}) {
@@ -19,6 +20,9 @@ function Accredit({dispatch,authorize,location,loading,roleId,accredit}) {
       type:'accredit/patch',
       payload:Object.assign({},{roleId},{permissionList})
     })
+    dispatch(routerRedux.push({
+      pathname:'role'
+    }))
   }
   const {code,name}=location.state.record;
   return (

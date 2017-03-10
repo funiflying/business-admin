@@ -37,10 +37,7 @@ class Bingding extends Component{
         pageSize:20
       };
       if(props.titleText=='全部'){
-        return (
-          <div style={{"margin":"10px auto"}}>
-            <Pagination {...pageProps} defaultCurrent={1}/>
-          </div>)
+
       }else if(props.titleText=='授权'){
         return (
           <div style={{"margin":"10px auto","textAlign":"right","paddingRight":"10px"}}>
