@@ -30,7 +30,7 @@ class Conf extends Component{
   render(){
     const { getFieldDecorator } = this.props.form;
     const {okHandler,loading} =this.props;
-    let { thirdName,status,host,appId,appKey,token,notifyCallbackUrl} = this.props.record;
+    let { name,status,host,appId,appKey,token,notifyCallbackUrl} = this.props.record;
     let protocol="http://";
     let url=notifyCallbackUrl;
     if(notifyCallbackUrl&&notifyCallbackUrl.indexOf("https://")==0){
@@ -65,19 +65,13 @@ class Conf extends Component{
     return (
       <div>
         <Spin spinning={loading}>
-        <Form horizontal onSubmit={this.okHandler.bind(this)}>
+        <Form  onSubmit={this.okHandler.bind(this)}>
           <FormItem
             {...formItemLayout}
             label="应用名称"
           >
-            <span className="ant-form-text">{thirdName}</span>
+            <span className="ant-form-text">{name}</span>
           </FormItem>
-         {/* <FormItem
-            {...formItemLayout}
-            label="应用状态"
-          >
-          <Switch checkedChildren={'启用'} unCheckedChildren={'禁用'} disabled defaultValue={Boolean(status)}/>
-          </FormItem>*/}
           <FormItem
             {...formItemLayout}
             label="主机地址"

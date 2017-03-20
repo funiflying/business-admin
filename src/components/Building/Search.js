@@ -1,7 +1,7 @@
 import React ,{Component}from 'react';
 import { Form, Row, Col, Input, Button, Icon } from 'antd';
 const FormItem = Form.Item;
-import styles from './Search.css';
+import styles from '../../components/Search.css';
 
 class Search extends Component{
   constructor(props){
@@ -20,11 +20,11 @@ class Search extends Component{
 
     const formItemLayout = {
       labelCol: { span:0 },
-      wrapperCol: { span: 20},
+      wrapperCol: { span: 21},
     };
     return (
       <div>
-        <Form horizontal onSubmit={this.submitHandler.bind(this)}>
+        <Form  onSubmit={this.submitHandler.bind(this)}>
           <Row>
             <Col span="6">
               <FormItem {...formItemLayout} label=''>

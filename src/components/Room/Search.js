@@ -23,7 +23,7 @@ class Search extends Component{
     };
     return (
       <div>
-        <Form horizontal onSubmit={this.submitHandler.bind(this)}>
+        <Form onSubmit={this.submitHandler.bind(this)}>
           <Row>
             <Col span="6">
               <FormItem {...formItemLayout} label=''>

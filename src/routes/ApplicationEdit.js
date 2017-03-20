@@ -9,7 +9,7 @@ function ApplicationAppend({dispatch,location,loading,conf}) {
       payload: values ,
     });
   }
-  const record=Object.assign({},location.state&&location.state.record,conf.data);
+  const record=Object.assign({},{...location.state.record},{...conf.data});
   return (
     <div>
       <ConfComponent record={record} onOk={createHandler} loading={loading}/>

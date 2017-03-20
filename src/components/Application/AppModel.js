@@ -31,13 +31,14 @@ class AppModel extends Component {
       if (!err) {
         onOk(Object.assign({},values,{status:Number(values.status)}));
         this.hideModelHandler();
+        this.props.form.resetFields();
       }
     });
   };
   render() {
     const { children,title } = this.props;
     const { getFieldDecorator } = this.props.form;
-    const { thirdName, status,appUrl,iconUrl,manageUrl
+    const { thirdName, status,appUrl,iconUrl,manageUrl,id
     } = this.props.record;
     const formItemLayout = {
       labelCol: { span: 6 },
@@ -53,9 +54,9 @@ class AppModel extends Component {
           visible={this.state.visible}
           onOk={this.okHandler}
           onCancel={this.hideModelHandler}
-          key={Math.random()}
+          key={id}
         >
-          <Form horizontal onSubmit={this.okHandler}>
+          <Form  onSubmit={this.okHandler}>
             <FormItem
               {...formItemLayout}
               label="应用名称"
@@ -112,7 +113,7 @@ class AppModel extends Component {
                 })(<Input />)
               }
             </FormItem>
-            <FormItem
+            {/*<FormItem
               {...formItemLayout}
               label="应用状态"
             >
@@ -122,7 +123,7 @@ class AppModel extends Component {
                   valuePropName: 'checked'
                 })(<Switch checkedChildren={'启用'} unCheckedChildren={'禁用'} />)
               }
-            </FormItem>
+            </FormItem>*/}
           </Form>
         </Modal>
       </span>

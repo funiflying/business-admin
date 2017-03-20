@@ -5,11 +5,9 @@ import { Table,Popconfirm,Row,Col} from 'antd';
 import { routerRedux } from 'dva/router';
 import SearchComponent from '../components/Building/Search';
 import BuildingModel from '../components/Building/BuildingModel';
-
+import TreeComponent from '../components/Tree/Tree';
 import styles from './Company.less';
-
-
-function App({dispatch,data,loading,page,size,id,location}) {
+function App({dispatch,data,loading,page,size,id,name,company,nodes,community}) {
   function pageChangeHandler(page) {
     dispatch(routerRedux.push({
       pathname: '/building',
@@ -17,10 +15,11 @@ function App({dispatch,data,loading,page,size,id,location}) {
     }));
   }
   function search(values) {
-    dispatch(routerRedux.push({
-      pathname: '/building',
-      query: {...values,id} ,
-    }));
+      console.log(id)
+    dispatch({
+      type: 'building/fetch',
+      payload: {...values,id}
+    });
   }
   function deleteHandler(id) {
     dispatch({
@@ -48,7 +47,7 @@ function App({dispatch,data,loading,page,size,id,location}) {
     {
       title: '操作',
       key: 'operation',
-      width:'16%',
+      width:'20%',
       render:(record)=>{
         const linkProps={
           pathname:'/room',
@@ -80,36 +79,48 @@ function App({dispatch,data,loading,page,size,id,location}) {
     },
     onChange:pageChangeHandler
   };
-  function onPageChange(pageNo) {
-    dispatch({
-      type:'building/fetchCommunity',
-      payload:{pageNo,page,size,id}
-    })
-  }
+  function pageHandler(page) {
+        dispatch({
+            type:'company/fetch',
+            payload:{page}
+        })
+    }
   function onSearch(name) {
     dispatch({
       type:'building/fetchCommunity',
       payload:{name,page,size,id}
     })
   }
-  const treeProps={
-    defaultExpandAll:true,
-    showLine:true,
-    defaultSelectedKeys:[id],
-    onSelect:(id,node)=>{
-      dispatch(routerRedux.push({
-        pathname: '/building',
-        query: { page,size,id},
-      }));
+  function loadData(node){
+      const {eventKey,isOrgan}=node.props;
+      if(isOrgan){
+          dispatch({
+              type: 'community/fetchByOrgan',
+              payload: {orgId:eventKey}
+          });
+      }else {
+          dispatch({
+              type:"organization/fetchOnly",
+              payload:{eid:eventKey}
+          });
+      }
     }
-  }
+  function selectHandler({node}) {
+      const {eventKey,isCommunity}=node.props;
+      if(true){
+          dispatch({
+              type: 'building/fetch',
+              payload: {id:eventKey}
+          });
+      }
+    }
   return (
     <div>
       <Row>
-        <Col span="0">
-{/*          <TreeComponent treeProps={treeProps} treeData={community} onPageChange={onPageChange} onSearch={onSearch}/>*/}
+        <Col span="6">
+            <TreeComponent rootData={company} nodesData={nodes}  onSearch={onSearch}  loadData={loadData} selectHandler={selectHandler} draggable={true} onPageChange={pageHandler} name={name} community={community}/>
         </Col>
-        <Col span="24">
+        <Col span="18">
           <SearchComponent onSearch={search}/>
           <Table
             columns={columns}
@@ -124,14 +135,19 @@ function App({dispatch,data,loading,page,size,id,location}) {
   );
 }
 function mapStateToProps(state) {
-  const { data,page,size,status,id} = state.building;
+  const { data,page,size,id} = state.building;
+  const { nodes} = state.organization;
+  const company=state.company.data;
+  const community=state.community.list;
   return {
     loading: state.loading.models.building,
     data,
     page,
     size,
-    status,
-    id
+    id,
+    company,
+    nodes,
+    community
   };
 }
 export default connect(mapStateToProps)(App);

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'dva';
 import {routerRedux} from 'dva/router'
+import {Layout,Menu,Icon} from 'antd'
 import {getSession,setSession} from '../utils/index'
 import styles from '../components/Layout/main.less';
 import Header from '../components/Layout/Header';
@@ -44,7 +45,7 @@ function App({ children,location,routes,dispatch,app,status}) {
               <Bread routes={routes}/>
               <div className={styles.container}>
                   <div className={styles.content}>
-                      {children}
+                      { children }
                   </div>
               </div>
             <Footer/>
@@ -60,5 +61,4 @@ function mapStateToProps(state) {
     status
   };
 }
-
 export default connect(mapStateToProps)(App);

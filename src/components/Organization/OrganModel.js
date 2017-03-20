@@ -40,7 +40,7 @@ class OrganModel extends Component {
     const node_Name=nodeName;
     const formItemLayout = {
       labelCol: { span: 4 },
-      wrapperCol: { span: 16},
+      wrapperCol: { span: 16}
     };
     const tailFormItemLayout = {
       wrapperCol: {
@@ -59,7 +59,7 @@ class OrganModel extends Component {
           onOk={this.okHandler}
           onCancel={this.hideModelHandler}
         >
-             <Form horizontal onSubmit={this.okHandler.bind(this,id,parentId)}>
+             <Form  onSubmit={this.okHandler.bind(this,id,parentId)}>
               <FormItem {...formItemLayout} label='编号'>
                 <span className="ant-form-text">{code}</span>
               </FormItem>

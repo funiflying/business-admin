@@ -6,6 +6,9 @@ export function fetch({page=1,size=20,name='',code='',address=''}) {
 export function fetchAll({page=1,size=1000000,name='',orgId}) {
   return request(constant.COMMUNITY_LIST_ALL+`?pageNo=${page}&pageNum=1000000&name=${name}&organizationId=${orgId}`)
 }
+export function fetchChildren({page=1,size=1000000,name='',orgId}) {
+    return request(constant.COMMUNITY_LIST_CHILDREN+`?pageNo=${page}&pageNum=1000000&name=${name}&organizationId=${orgId}`)
+}
 export function fetch_by_eid({page=1,size=1000000,eid}) {
   return request(constant.COMMUNITY_LIST_BY_COMPANY+`?pageNo=${page}&pageNum=1000000&eid=${eid}`)
 }

@@ -7,9 +7,7 @@
 
 #### 快速开始
 
-克隆项目：
-
-` git clone https://github.com/funiflying/dva-antd-admin.git `
+`
 
 安装依赖：
 `npm install 或 yran install` 

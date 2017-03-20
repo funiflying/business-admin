@@ -1,7 +1,7 @@
 import React,{ Component } from 'react';
 import {Button,Form,Input,Row,Col,Select} from 'antd';
 import AppModel from './AppModel'
-import styles from './Search.css';
+import styles from '../../components/Search.css';
 const SearchInput = Input.Search;
 class Search extends Component  {
   constructor(props) {

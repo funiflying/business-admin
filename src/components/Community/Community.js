@@ -66,7 +66,7 @@ class Community extends Component{
       <div>
         <Row>
           <Col span="9">
-            <Form horizontal>
+            <Form>
               <FormItem
                 {...formItemLayout}
                 label="社区名称"

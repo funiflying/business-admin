@@ -17,6 +17,10 @@ export default {
       let list= yield call(Service.fetch,{page,size,name});
       yield put({ type: 'save', payload: {list,page:parseInt(page),size:parseInt(size)} });
     },
+    *fetchChildren({payload:{page=1,size=20,name='',orgId}},{call,put}){
+          let list= yield call(Service.fetchChildren,{page,size,name,orgId});
+          yield put({ type: 'save', payload: {list,page:parseInt(page),size:parseInt(size)} });
+    },
     *fetchByOrgan({payload:{page=1,size=20,name='',orgId}},{call,put,select}){
       let list= yield call(Service.fetchAll,{page,size,name,orgId});
       const eid=yield select(state=>state.community.eid);

@@ -13,7 +13,23 @@ const app = dva({
           message.info(err.message)
     }
 });
+
+
+// 2. Plugins
+app.use(createLoading({
+  effects:{
+    company:false
+  }
+}));
+//app.use(createLogger());
+// 3. Model
 app.model(require("./models/users"));
+
+app.model(require("./models/communityApp"));
+
+app.model(require("./models/companyApp"));
+
+app.model(require("./models/companyAudit"));
 
 app.model(require("./models/room"));
 
@@ -36,17 +52,6 @@ app.model(require("./models/company"));
 app.model(require("./models/login"));
 
 app.model(require("./models/app"));
-
-// 2. Plugins
-app.use(createLoading({
-  effects:{
-    company:false
-  }
-}));
-//app.use(createLogger());
-
-// 3. Model
-// app.model(require('./models/example'));
 
 // 4. Router
 app.router(require('./router'));

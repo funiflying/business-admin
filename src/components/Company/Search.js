@@ -1,7 +1,7 @@
 import React,{ Component } from 'react';
 import {Button,Form,Input,Row,Col} from 'antd';
 import CompanyModel from './CompanyModel'
-import styles from './Search.css';
+import styles from '../../components/Search.css';
 const SearchInput = Input.Search;
 class Search extends Component  {
   constructor(props) {
@@ -12,7 +12,6 @@ class Search extends Component  {
   }
   handleSubmit(value){
     const { search } = this.props;
-    console.log(value)
     search({name:value})
   }
   render(){

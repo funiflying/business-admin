@@ -1,5 +1,6 @@
 /*http://rap.taobao.org/mockjsdata/14205/*/
 /*http://139.224.27.154:8080/iqCloud*/
+
 {
   "entry": "src/index.js",
   "disableCSSModules": false,
@@ -12,9 +13,9 @@
           "changeOrigin":true
       }
   },
- "theme": {
-        "@primary-color": "#CB2220"
-  },
+  "theme": {
+          "@primary-color": "#CB2220"
+    },
   "extraBabelPlugins": [
     "transform-runtime",
     ["import",{"libraryName":"antd","style":true}]

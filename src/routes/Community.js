@@ -1,16 +1,16 @@
 import React from 'react';
 import { connect } from 'dva';
 import { Table,Popconfirm,message,Button,Row,Col} from 'antd';
-import TreeComponent from '../components/Community/Tree'
+import TreeComponent from '../components/Tree/Tree'
 import { routerRedux,Link } from 'dva/router';
 import styles from './Company.less'
-function Community({dispatch,list,loading,page,size,company,nodes,eid,orgId}) {
-  function onSearch(value) {
-    dispatch(routerRedux.push({
-      pathname: '/community',
-      query: value ,
-    }));
-  }
+function Community({dispatch,list,loading,page,size,company,nodes,eid,orgId,name}) {
+    function onSearch(name) {
+        dispatch(routerRedux.push({
+            pathname:'community',
+            query:{name,page,eid}
+        }))
+    }
   function deleteHandler(id) {
     dispatch({
       type: 'community/remove',
@@ -46,6 +46,12 @@ function Community({dispatch,list,loading,page,size,company,nodes,eid,orgId}) {
   function selectHandler({node}) {
     loadData(node)
   }
+    function pageHandler(page) {
+        dispatch({
+            type:'company/fetch',
+            payload:{page}
+        })
+    }
   const columns = [
     {
        title:"编号",
@@ -80,9 +86,9 @@ function Community({dispatch,list,loading,page,size,company,nodes,eid,orgId}) {
         return (<div className={styles['antd-operation-link']}>
           <Link to={linkProps} className={styles['text-green']}>授权</Link>
           <Link to={link} className={styles['text-green']}>查看楼宇</Link>
-         {/* <Popconfirm title="确定删除?" onConfirm={deleteHandler.bind(null, record.id)}>
+         <Popconfirm title="确定删除?" onConfirm={deleteHandler.bind(null, record.id)}>
             <a href="javascript:void(0)">删除</a>
-          </Popconfirm>*/}
+          </Popconfirm>
         </div>)
       }
     }
@@ -103,7 +109,7 @@ function Community({dispatch,list,loading,page,size,company,nodes,eid,orgId}) {
     <div>
       <Row>
         <Col span="6">
-           <TreeComponent rootData={company} nodesData={nodes} loadData={loadData} selectHandler={selectHandler} orgId={orgId}/>
+            <TreeComponent rootData={company} nodesData={nodes}  onSearch={onSearch}  loadData={loadData} selectHandler={selectHandler}  eid={eid} onPageChange={pageHandler} name={name}/>
         </Col>
         <Col span="18">
           <Table
@@ -121,7 +127,7 @@ function Community({dispatch,list,loading,page,size,company,nodes,eid,orgId}) {
 }
 function mapStateToProps(state) {
   const { list,size,eid,orgId} = state.community;
-  const {data,page}=state.company;
+  const {data,page,name}=state.company;
   const {nodes} =state.organization;
   return {
     loading: state.loading.models.community,
@@ -131,7 +137,8 @@ function mapStateToProps(state) {
     size,
     nodes,
     eid,
-    orgId
+    orgId,
+     name
   };
 }
 export default connect(mapStateToProps)(Community);

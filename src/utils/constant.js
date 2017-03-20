@@ -1,6 +1,7 @@
 export default {
   //登录模块
   LOGIN_ACCOUNT:"/api/account/loginByAccountForWeb",//用户登录
+  //企业模块
   COMPANY_LIST:"/api/enterprise/getEnterprisesByPage",//企业列表
   COMPANY_DELETE:"/api/enterprise/deleteEnterprise",//删除企业
   COMPANY_EDIT:"/api/enterprise/updateEnterprise",//企业编辑
@@ -8,33 +9,40 @@ export default {
   COMPANY_UPLOAD:"/api/enterprise/cloud/uploadExcel",//上传
   COMPANY_READ:"/api/enterprise/cloud/execute",//读取上传后的数据
   COMPANY_READ_STATUS:"/api/enterprise/cloud/getLoadStatus",//数据执行状态
+  // 社区模块
   COMMUNITY:"/api/community/getByWhere",//查询社区
   COMMUNITY_LIST:"/api/community/getCommunityByOrganization",//特定组织机构社区列表
   COMMUNITY_LIST_ALL:"/api/community/getCommunityByOrganizationAll",//组织机构所有社区列表
+  COMMUNITY_LIST_CHILDREN:"/api/community/getCommunityByOrganization",////组织机构下级社区列表
   COMMUNITY_LIST_BY_COMPANY:"/api/community/getCommunityByEnterprise",//企业下所有社区
   COMMUNITY_CREATE:"/api/community/insertCommunity",//新增社区
   COMMUNITY_DELETE:"/api/community/deleteCommunity",//删除社区
   COMMUNITY_EDIT:"/api/community/updateCommunity",//编辑社区
+  //应用模块
   APP_LIST:"/api/third/getByPage",//应用列表
   APP_DELETE:"/api/third/deleteThird",//删除应用
   APP_CREATE:"/api/third/insertThird",//新增应用
   APP_EDIT:"/api/third/updateThird",//编辑应用
   APP_GET_CONF:"/api/third/getCallbackUrl",//获取应用回调
   APP_CONF:"/api/third/setCallbackUrl",//设置回调
+  //楼宇模块
   BUILDING_LIST:"/api/community/getBuildingByCommunity",//楼宇列表
   BUILDING_DELETE:"/api/community/deleteBuilding",//删除楼宇
   BUILDING_EDIT:"/api/community/updateBuilding",//编辑楼宇
   BUILDING_CREATE:"/api/community/insertBuilding",//创建楼宇
+  //组织机构模块
   ORGAN_LIST_COMPANY:"/api/enterprise/getEnterpriseOrganizations",//企业下属所有机构
   ORGAN_LIST_CHILDREN:"/api/enterprise/getOrganizationChilds",//所有子机构
   ORGAN_EDIT:"/api/enterprise/updateOrganization",//修改
   ORGAN_DELETE:"/api/enterprise/deleteOrganization",//删除
   ORGAN_CREATE:"/api/enterprise/insertOrganization",//新增
   ORGAN_DETAILS:"/api/enterprise/getOrganizationById",//详细
+  //权限模块
   AUTHORIZE_LIST:"/api/permission/system/getPermissionByPage",//权限列表
   AUTHORIZE_CREATE:"/api/permission/system/insertPermission",//新增
   AUTHORIZE_DELETE:"/api/permission/system/deletePermission",//禁用
   AUTHORIZE_EDIT:"/api/permission/system/updatePermission",//编辑
+  //角色模块
   ROLE_LIST:"/api/permission/system/getRoleByPage",//角色列表
   ROLE_DELETE:"/api/permission/system/deleteRole",//删除角色
   ROLE_CREATE:"/api/permission/system/insertRole",//新增角色
@@ -45,9 +53,17 @@ export default {
   ROLE_COMPANY_LIST:"/api/permission/system/getEnterpriseRole",//企业角色列表
   ROLE_COMMUNITY_LIST:"/api/permission/system/getCommunityRole",//社区角色列表
   ROLE_COMMUNITY_BINDING:"/api/permission/system/bindRoleToCommunity",//企业绑定角色
+  //房间模块
   ROOM_LIST:"/api/community/getRoomByBuilding",//获取某楼所有房间
   ROOM_DELETE:"/api/community/deleteRoom",//删除房间
   ROOM_CREATE:"/api/community/insertRoom",//新增房间
   ROOM_EDIT:"/api/community/updateRoom",//修改房间
-
+  //客服模块
+  SERVICE_COMPANY_LIST:"/api/operate/getWaitingEnterpriseByPage",//企业审核列表
+  SERVICE_COMPANY_AUDIT:"/api/operate/replyEnterpriseRegister",//企业审核
+  SERVICE_COMPANY_INFO:"",//企业详情
+  SERVICE_COMPANY_APP_LIST:"/api/operate/getEnterpriseThirdCheckByPage",//企业应用审核列表
+  SERVICE_COMPANY_APP_AUDIT:"/api/operate/replyEnterpriseRegister",//企业应用审核
+  SERVICE_COMMUNITY_APP_LIST:"/api/operate/getCommunityThirdCheckByPage",//社区应用审核列表
+  SERVICE_COMMUNITY_APP_AUDIT:"/api/operate/replyCommunityThirdRequest",//社区应用审核
 }

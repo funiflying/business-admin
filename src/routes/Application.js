@@ -52,8 +52,8 @@ function App({dispatch,loading,page,size,status,data={}}) {
   const columns = [
     {
       title: '应用名称',
-      dataIndex: 'thirdName',
-      key: 'thirdName',
+      dataIndex: 'name',
+      key: 'name',
     },
     {
       title: '业主端页面URL',

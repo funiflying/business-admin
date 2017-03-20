@@ -48,6 +48,45 @@ class OrganModel extends Component {
         offset: 4,
       },
     };
+    const selectOption=(nodeFlag)=>{
+        const list=[
+            {
+                label:"总部",
+                value:"0"
+            },
+            {
+                label:"大区公司",
+                value:"1"
+            },
+            {
+                label:"省级公司",
+                value:"2"
+            },
+            {
+                label:"市级公司",
+                value:"3"
+            },
+            {
+                label:"县级公司",
+                value:"4"
+            },
+            {
+                label:"部门",
+                value:"9"
+            },
+            {
+                label:"岗位",
+                value:"10"
+            }
+        ];
+        let arr=[];
+        list.map((item)=>{
+            if(parseInt(item.value)>parseInt(nodeFlag)){
+                arr.push(<Option value={item.value} key={item.value}>{item.label}</Option>)
+            }
+        });
+        return arr;
+    }
     return (
       <span>
         <span onClick={this.showModelHandler}>
@@ -59,7 +98,7 @@ class OrganModel extends Component {
           onOk={this.okHandler}
           onCancel={this.hideModelHandler}
         >
-             <Form horizontal onSubmit={this.okHandler.bind(this)}>
+             <Form  onSubmit={this.okHandler.bind(this)}>
                <FormItem {...formItemLayout} label='所属企业' style={{'display':'none'}}>
                 {getFieldDecorator('eid',{
                   initialValue:eid,
@@ -110,13 +149,7 @@ class OrganModel extends Component {
                   ]
                 })(
                   <Select>
-                    <Option value="0">总部</Option>
-                    <Option value="1">大区公司</Option>
-                    <Option value="2">省级公司</Option>
-                    <Option value="3">市级公司</Option>
-                    <Option value="4">县级公司</Option>
-                    <Option value="9">部门</Option>
-                    <Option value="10">岗位</Option>
+                      {selectOption(nodeFlag)}
                   </Select>
                 )}
               </FormItem>
