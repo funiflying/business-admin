@@ -10,8 +10,8 @@ export default {
         }
     },
     effects: {
-        *fetch({payload:{page=1,size=20,name}},{call,put}){
-            const list=yield call(Service.fetch_company_app_list,{page,size,name});
+        *fetch({payload:{page=1,size=10,name,status}},{call,put}){
+            const list=yield call(Service.fetch_company_app_list,{page,size,name,status});
             yield put({type:"save",payload:{list,size:parseInt(size),page:parseInt(page)}});
         },
         *patch({payload:values},{call,put}){

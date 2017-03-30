@@ -10,8 +10,8 @@ export default {
       }
   },
   effects: {
-     *fetch({payload:{page,size,name}},{call,put}){
-       const list=yield call(Service.fetch_company_list,{page,size,name});
+     *fetch({payload:{page=1,size=10,name,status}},{call,put}){
+       const list=yield call(Service.fetch_company_list,{page,size,name,status});
          yield put({type:"save",payload:{list,size:parseInt(size),page:parseInt(page)}});
      },
       *fetch_company_info({payload:{eid}},{call,put}){
@@ -35,7 +35,7 @@ export default {
                   dispatch({type:'fetch',payload:query})
               }
               if(pathname==='/service/company/info'){
-                  dispatch({type:'fetch_company_info',payload:query})
+                  //dispatch({type:'fetch_company_info',payload:query})
               }
           })
       }

@@ -56,7 +56,10 @@ function RouterConfig({ history}) {
         <Route path="/room" component={Room} breadcrumbName="房间管理"/>
         <Route  breadcrumbName="客服中心">
             <Route path="/service/company" component={ServiceCompany} breadcrumbName="企业审核"/>
-            <Route path="/service/company/info" component={CompanyInfo} breadcrumbName="企业信息"/>
+            <Route path="/service/company"  breadcrumbName="企业审核">
+              <Route path="/service/company/info" component={CompanyInfo} breadcrumbName="企业信息"/>
+            </Route>
+
             <Route path="/service/community/app" component={CommunityApp} breadcrumbName="社区应用"/>
             <Route path="/service/company/app" component={CompanyApp} breadcrumbName="企业应用"/>
         </Route>

@@ -1,5 +1,4 @@
 import * as Service from '../services/organization'
-import _ from 'underscore';
 export default {
     namespace: 'organization',
     state: {

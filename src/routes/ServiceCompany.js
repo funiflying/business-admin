@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
-import { Table} from 'antd';
+import { Table,Tag} from 'antd';
 import { routerRedux,Link } from 'dva/router';
 import SearchComponent from '../components/Service/CompanySearch';
 import AuditModel from '../components/Service/CompanyAudit';
@@ -8,15 +8,16 @@ import AuditModel from '../components/Service/CompanyAudit';
 import styles from './Company.less'
 function Company({dispatch,list,loading,page,size,status}) {
     function pageChangeHandler(page) {
+
         dispatch(routerRedux.push({
             pathname: '/service/company',
             query: { page,size }
         }));
     }
-    function search(name) {
+    function search(values) {
         dispatch({
             type: 'companyAudit/fetch',
-            payload: name ,
+            payload: values ,
         });
     }
     function editHandler(id,values) {
@@ -56,6 +57,32 @@ function Company({dispatch,list,loading,page,size,status}) {
             dataIndex: 'contractPhone',
             key: 'contractPhone'
         },
+      {
+        title: '审核状态',
+        dataIndex: 'status',
+        key: 'status',
+        render:(text)=>{
+          switch (parseInt(text)){
+            case 1:
+              return <Tag color="blue">待填写</Tag>;
+              break;
+            case 2:
+              return  <Tag color="red">待审核</Tag>;
+              break;
+            case 3:
+              return  <Tag color="green">已通过</Tag>;
+              break;
+            case -1:
+              return  <Tag color="orange">已驳回</Tag>;
+              break;
+            case 0:
+              return  <Tag color="purple">待激活</Tag>;
+              break;
+            default:
+              return "";
+          }
+        }
+      },
         {
             title: '备注',
             dataIndex: 'readme',
@@ -71,12 +98,39 @@ function Company({dispatch,list,loading,page,size,status}) {
                     query:{eid:record.id},
                     state:{record}
                 };
-                return (<div className={styles['antd-operation-link']}>
+              switch (parseInt(record.status)){
+                case 1:
+                  return (<div className={styles['antd-operation-link']}>
+                    <Link to={linkProps} className={styles['text-green']}>详细资料</Link>
+                  </div>);
+                  break;
+                case 2:
+                  return (<div className={styles['antd-operation-link']}>
                     <AuditModel record={record} onOk={editHandler.bind(null, record.id)} title="审核企业信息" isEdit={true}>
-                        <a href="javascript:void(0)" className={styles['edit-text']}>审核</a>
+                      <a href="javascript:void(0)" className={styles['edit-text']}>审核</a>
                     </AuditModel>
                     <Link to={linkProps} className={styles['text-green']}>详细资料</Link>
-                </div>)
+                  </div>)
+                  break;
+                case 3:
+                  return (<div className={styles['antd-operation-link']}>
+                    <Link to={linkProps} className={styles['text-green']}>详细资料</Link>
+                  </div>)
+                  break;
+                case -1:
+                  return (<div className={styles['antd-operation-link']}>
+                    <Link to={linkProps} className={styles['text-green']}>详细资料</Link>
+                  </div>)
+                  break;
+                case 0:
+                  return (<div className={styles['antd-operation-link']}>
+                    <Link to={linkProps} className={styles['text-green']}>详细资料</Link>
+                  </div>)
+                  break;
+                default:
+                  return "";
+              }
+
             }
         },
     ];

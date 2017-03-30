@@ -13,10 +13,10 @@ function App({dispatch,list,loading,page,size}) {
             query: { page,size }
         }));
     }
-    function search(name) {
+    function search(values) {
         dispatch({
             type: 'communityApp/fetch',
-            payload: name ,
+            payload: values ,
         });
     }
     function editHandler(values) {

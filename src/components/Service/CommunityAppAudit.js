@@ -16,7 +16,6 @@ class CompanyModel extends Component {
             visible: true,
         });
     };
-
     hideModelHandler = () => {
         this.setState({
             visible: false,
@@ -37,7 +36,7 @@ class CompanyModel extends Component {
     render() {
         const { children } = this.props;
         const { getFieldDecorator } = this.props.form;
-        const { eid,company, status=1,reply,thirdName,thirdId,deviceCount,deviceType=''} = this.props.record;
+        const { eid,company,reply,thirdName,thirdId,deviceCount,deviceType='',id} = this.props.record;
         const formItemLayout = {
             labelCol: { span: 6 },
             wrapperCol: { span: 16 },
@@ -72,11 +71,10 @@ class CompanyModel extends Component {
               >
               {
                   getFieldDecorator('id', {
-                      initialValue: thirdId
+                      initialValue: id
                   })(<span className="ant-form-text">{thirdName}</span>)
               }
             </FormItem>
-
               <FormItem
                   {...formItemLayout}
                   label="设备数量"
@@ -107,7 +105,7 @@ class CompanyModel extends Component {
                           }
                       ]
                   })(
-                      <Select>
+                      <Select style={{width:200}} >
                           <Select.Option value="1">业主端-物业 </Select.Option>
                           <Select.Option value="2">业主端-生活</Select.Option>
                           <Select.Option value="11">物业端-服务</Select.Option>
@@ -123,7 +121,7 @@ class CompanyModel extends Component {
             >
               {
                   getFieldDecorator('status', {
-                      initialValue: status,
+                      initialValue: "1",
                       rules: [
                           {
                               required: true,
@@ -132,8 +130,8 @@ class CompanyModel extends Component {
                       ]
                   })(
                       <RadioGroup>
-                          <Radio value={1}>通过</Radio>
-                          <Radio value={0}>不通过</Radio>
+                          <Radio value="1">通过</Radio>
+                          <Radio value="-1">不通过</Radio>
                       </RadioGroup>
                   )
               }

@@ -1,14 +1,22 @@
 import React,{ Component } from 'react';
-import {Button,Form,Input,Row,Col} from 'antd';
+import {Button,Form,Input,Row,Col,Select} from 'antd';
 const SearchInput = Input.Search;
 import styles from '../../components/Search.css';
+const FormItem=Form.Item;
+const Option=Select.Option;
 class Search extends Component  {
     constructor(props) {
         super(props);
     }
-    handleSubmit(value){
+    handleSubmit(){
         const { search } = this.props;
-        search({name:value})
+      this.props.form.validateFields((err, values) => {
+        if (!err) {
+          console.log(values)
+          search(values)
+        }
+      });
+
     }
     render(){
         const formItemLayout = {
@@ -23,11 +31,40 @@ class Search extends Component  {
 
                 </Col>
                 <Col span="8" className={styles['ant-advanced-search-form']}>
-                    <SearchInput
-                        placeholder="企业名称"
-                        style={{ width: 200,float:'right' }}
-                        onSearch={this.handleSubmit.bind(this)}
-                    />
+                  <Form layout="inline" onSubmit={this.handleSubmit.bind(this)}>
+                    <FormItem
+                      {...formItemLayout}
+                    >
+                      {getFieldDecorator('status', {
+
+                      })(
+                        <Select style={{ width: 150 }} placeholder="审核状态" allowClear={true}>
+                          <Option value="2">待审核</Option>
+                          <Option value="1">待填写</Option>
+                          <Option value="3">已通过</Option>
+                          <Option value="-1">已驳回</Option>
+                          <Option value="0">待激活</Option>
+                        </Select>
+                      )}
+                    </FormItem>
+                    <FormItem
+                      {...formItemLayout}
+                    >
+                      {getFieldDecorator('name', {
+                      })(
+                        <Input placeholder="企业名称"/>
+                      )}
+                    </FormItem>
+                    <FormItem>
+                      <Button
+                        type="primary"
+                        htmlType="submit"
+                      >
+                       搜索
+                      </Button>
+                    </FormItem>
+                  </Form>
+
                 </Col>
             </Row>
         );

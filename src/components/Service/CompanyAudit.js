@@ -72,7 +72,7 @@ class CompanyModel extends Component {
             >
               {
                   getFieldDecorator('status', {
-                      initialValue: status,
+                      initialValue: "3",
                       rules: [
                           {
                               required: true,
@@ -81,8 +81,8 @@ class CompanyModel extends Component {
                       ]
                   })(
                       <RadioGroup>
-                          <Radio value={1}>通过</Radio>
-                          <Radio value={0}>不通过</Radio>
+                          <Radio value="3">通过</Radio>
+                          <Radio value="-1">不通过</Radio>
                       </RadioGroup>
                   )
               }

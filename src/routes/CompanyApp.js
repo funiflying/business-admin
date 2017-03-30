@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'dva';
 import { Table,Tag,Popconfirm} from 'antd';
 import { routerRedux } from 'dva/router';
-import SearchComponent from '../components/Service/CompanySearch';
+import SearchComponent from '../components/Service/CommunitySearch';
 import AuditModel from '../components/Service/CompanyAppAudit';
 
 import styles from './Company.less'
@@ -13,10 +13,10 @@ function Company({dispatch,list,loading,page,size,status}) {
             query: { page,size }
         }));
     }
-    function search(name) {
+    function search(values) {
         dispatch({
             type: 'companyApp/fetch',
-            payload: name ,
+            payload: values ,
         });
     }
     function editHandler(values) {
@@ -30,11 +30,6 @@ function Company({dispatch,list,loading,page,size,status}) {
             title: '企业名称',
             dataIndex: 'company',
             key: 'company',
-        },
-        {
-            title: '公司地址',
-            dataIndex: 'address',
-            key: 'address'
         },
         {
             title: '联系人',
@@ -104,6 +99,7 @@ function Company({dispatch,list,loading,page,size,status}) {
                         return "";
                 }
             }
+
         },
         {
             title: '操作',

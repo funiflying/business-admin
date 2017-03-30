@@ -63,7 +63,7 @@ export default {
   SERVICE_COMPANY_AUDIT:"/api/operate/replyEnterpriseRegister",//企业审核
   SERVICE_COMPANY_INFO:"",//企业详情
   SERVICE_COMPANY_APP_LIST:"/api/operate/getEnterpriseThirdCheckByPage",//企业应用审核列表
-  SERVICE_COMPANY_APP_AUDIT:"/api/operate/replyEnterpriseRegister",//企业应用审核
+  SERVICE_COMPANY_APP_AUDIT:"/api/operate/replyEnterpriseThirdRequest",//企业应用审核
   SERVICE_COMMUNITY_APP_LIST:"/api/operate/getCommunityThirdCheckByPage",//社区应用审核列表
   SERVICE_COMMUNITY_APP_AUDIT:"/api/operate/replyCommunityThirdRequest",//社区应用审核
 }
